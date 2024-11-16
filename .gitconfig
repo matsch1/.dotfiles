@@ -1,0 +1,5 @@
+[user]
+	name = Matthias Schaefer
+	email = matsch1@gmx.net
+[core]
+	autocrlf = false
