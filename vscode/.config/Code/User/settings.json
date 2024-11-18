@@ -1,13 +1,22 @@
-
-    "window.restoreWindows": "none",
-  
-    // ###############################################################
+{
+    // Window Settings
+    "window.restoreWindows": "none", // Start with VS Code home screen
+    "window.zoomLevel": 2, // Zoom level
+    "breadcrumbs.enabled": true, // Show folder path at the top of the editor
+
+    // Explorer Settings
+    "explorer.autoReveal": true, // Automatically selects active file in explorer
+
+    // Editor Settings
+    "editor.wordWrap": "on", // Enable line wrapping in editor
+    "editor.wordBasedSuggestions": "off", // Disable word-based suggestions
+    "html.format.wrapLineLength": 100, // Line length for HTML formatting
+
+    // Language-Specific Editor Settings
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
-        "editor.rulers": [
-            80
-        ],
+        "editor.rulers": [80],
         "editor.selectionHighlight": false,
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": "off"
@@ -15,48 +24,48 @@
     "[dockerfile]": {
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "ms-azuretools.vscode-docker"
-      },
+    },
     "[python]": {
-
-        "editor.wordBasedSuggestions": "off",
+        "editor.formatOnSave": false,
         "editor.formatOnType": true,
-
         "editor.defaultFormatter": "ms-python.autopep8",
-        "editor.formatOnSave": false
-
+        "editor.wordBasedSuggestions": "off"
     },
     "[shellscript]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "foxundermoon.shell-format"
-
     },
-    // ###############################################################
+
+    // File Associations
     "files.associations": {
         "*.jenkins": "groovy",
         "Dockerfile": "dockerfile"
     },
-    "window.zoomLevel": 2,
+
+    // Extensions Settings
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
-    "keyboard.dispatch": "keyCode", // for capslock-esc swap
-    "editor.wordWrap": "on", // don't wrap lines in editor
-  
-    // top vsco settings
-    "breadcrumbs.enabled": true, // show folder path at the top of the editor
-    "explorer.autoReveal": true, // automaticly selects active file in explorer
-    "html.format.wrapLineLength": 100,
 
-  "launch": {
+    // Keyboard Settings
+    "keyboard.dispatch": "keyCode", // For Caps Lock-Esc swap
+
+    // Debugging Settings
+    "launch": {
         "env": {
             "PYTHONPATH": "${workspaceFolder}"
-          }
+        }
     },
-  "security.allowedUNCHosts": [
+
+    // Security Settings
+    "security.allowedUNCHosts": [
         "wsl.localhost"
     ],
-  "window.restoreWindows": "none", // start with VSCO home screen 
-   "remote.autoForwardPortsSource": "hybrid",
+
+    // Remote Development Settings
+    "remote.autoForwardPortsSource": "hybrid",
+
+    // Terminal Settings
     "terminal.integrated.commandsToSkipShell": [
         "matlab.interrupt"
     ]
