@@ -4,4 +4,4 @@
 [core]
 	autocrlf = false
 [credential]
-	helper = manager-core
+	helper = store
