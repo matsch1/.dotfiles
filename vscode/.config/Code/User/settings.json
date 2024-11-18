@@ -1,5 +1,7 @@
-{
+
     "window.restoreWindows": "none",
+  
+    // ###############################################################
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
@@ -10,9 +12,52 @@
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": "off"
     },
+    "[dockerfile]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+      },
+    "[python]": {
+
+        "editor.wordBasedSuggestions": "off",
+        "editor.formatOnType": true,
+
+        "editor.defaultFormatter": "ms-python.autopep8",
+        "editor.formatOnSave": false
+
+    },
+    "[shellscript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+
+    },
+    // ###############################################################
+    "files.associations": {
+        "*.jenkins": "groovy",
+        "Dockerfile": "dockerfile"
+    },
     "window.zoomLevel": 2,
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
-    "keyboard.dispatch": "keyCode"
+    "keyboard.dispatch": "keyCode", // for capslock-esc swap
+    "editor.wordWrap": "on", // don't wrap lines in editor
+  
+    // top vsco settings
+    "breadcrumbs.enabled": true, // show folder path at the top of the editor
+    "explorer.autoReveal": true, // automaticly selects active file in explorer
+    "html.format.wrapLineLength": 100,
+
+  "launch": {
+        "env": {
+            "PYTHONPATH": "${workspaceFolder}"
+          }
+    },
+  "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+  "window.restoreWindows": "none", // start with VSCO home screen 
+   "remote.autoForwardPortsSource": "hybrid",
+    "terminal.integrated.commandsToSkipShell": [
+        "matlab.interrupt"
+    ]
 }
