@@ -3,3 +3,5 @@
 	email = matsch1@gmx.net
 [core]
 	autocrlf = false
+[credential]
+	helper = manager-core
