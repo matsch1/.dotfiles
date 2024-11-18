@@ -11,6 +11,7 @@ alias ll='ls -lah'
 alias ..='cd ..'
 alias grep='grep --color=auto'
 
+# definition of console prompt
 PS1='[\u@\h \W]\$ '
 
 # source fuzzy finder settings
@@ -18,7 +19,7 @@ PS1='[\u@\h \W]\$ '
 source /usr/share/fzf/key-bindings.bash
 
 # oh-my-posh
-eval "$(oh-my-posh init bash --config ~/.cache/oh-my-posh/themes/powerline.omp.json)"
+eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/themes/powerline.omp.json)"
 
 # environment variables
 export ANDROID_HOME=$HOME/android-sdk
