@@ -2,26 +2,44 @@
 # ~/.bashrc
 #
 
-# If not running interactively, don't do anything
+# Exit if not running interactively
 [[ $- != *i* ]] && return
 
-# aliases
+# ====================
+# Environment Variables
+# ====================
+export DOCKER_BUILDKIT=0
+export COMPOSE_DOCKER_CLI_BUILD=0
+export ANDROID_HOME=$HOME/android-sdk
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# ====================
+# Aliases
+# ====================
 alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias ..='cd ..'
 alias grep='grep --color=auto'
 
-# definition of console prompt
+# ====================
+# Prompt Configuration
+# ====================
 PS1='[\u@\h \W]\$ '
 
-# source fuzzy finder settings
+# ====================
+# Keybindings
+# ====================
+# Vim keybindings for bash
+set -o vi
+
+# ====================
+# Fuzzy Finder Configuration
+# ====================
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 source /usr/share/fzf/key-bindings.bash
 
-# oh-my-posh
-eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/themes/powerline.omp.json)"
-
-# environment variables
-export ANDROID_HOME=$HOME/android-sdk
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+# ====================
+# Oh My Posh Configuration
+# ====================
+eval "$(oh-my-posh --init --shell bash --config ~/.config/oh-my-posh/themes/slimfat.omp.json)"
