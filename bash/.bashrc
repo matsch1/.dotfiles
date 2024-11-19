@@ -38,7 +38,6 @@ set -o vi
 # ====================
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # ====================
 # Oh My Posh Configuration
