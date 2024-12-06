@@ -20,6 +20,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # ====================
 alias ls='ls --color=auto'
 alias ll='ls -lah'
+alias bat='batcat'
 alias ..='cd ..'
 alias grep='grep --color=auto'
 
