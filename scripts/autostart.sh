@@ -2,25 +2,26 @@
 
 # =========================== functions ====================================
 mount_googledrive_directory() {
-  DIR=$1
-  localpath="/home/matsch/$DIR"
-  remotepath="Googledrive:$DIR"
-  if [ ! -d "$localpath" ]; then
-    mkdir -p "$localpath"
-  fi
+  path2mount=$1
+  localpath="/home/matsch/$path2mount"
+  remotepath="Googledrive:$path2mount"
+  [ ! -d "$localpath" ] && mkdir -p "$localpath"
   rclone mount "$remotepath" "$localpath" --daemon --vfs-cache-mode=writes
 }
 
 # =========================== autostart ====================================
 # mount googledrive
 echo mount googledrive
-rclone mount "Googledrive:" "/home/matsch/Googledrive/" --daemon --vfs-cache-mode=writes
-Path2Mount="Files/Documents/Finanzen/Finanzplanung"
-mount_googledrive_directory "$Path2Mount"
-Path2Mount="Files/Documents/Finanzen/PortfolioPerformance"
-mount_googledrive_directory "$Path2Mount"
-Path2Mount="Files/Documents/KeePass"
-mount_googledrive_directory "$Path2Mount"
+declare -a paths=(
+  "Files/Documents/Finanzen/Finanzplanung"
+  "Files/Documents/Finanzen/PortfolioPerformance"
+  "Files/Documents/KeePass"
+  "Files/Gitarre"
+  "Files/Sport"
+)
+for Path2Mount in "${paths[@]}"; do
+  mount_googledrive_directory "$Path2Mount"
+done
 
 # start conky
 echo start conky
