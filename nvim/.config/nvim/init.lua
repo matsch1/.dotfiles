@@ -2,15 +2,7 @@
 require("config.lazy")
 
 -- General settings
-vim.opt.clipboard = "unnamedplus"
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.swapfile = false
-vim.wo.number = true
-vim.g.mapleader = " "
-vim.g.background = "light"
+require("config.options")
 
 -- Neo-tree setup
 require("neo-tree").setup({
