@@ -1,40 +1,40 @@
 #!/bin/bash
 
 mount_hdd() {
-  LABEL="$1"
-  MOUNT_POINT="$2"
+  DEVICE="$1"
+  LABEL="$2"
+  FSTYPE="$3"
+  MOUNT_POINT="/mnt/$LABEL"
 
-  DEVICE=$(lsblk -o NAME,LABEL -pn | grep -w "$LABEL" | awk '{print $1}' | sed 's/└─//')
+  echo "Processing device: $DEVICE (label: $LABEL)"
 
-  if [ -n "$DEVICE" ]; then
-    echo "Device with label '$LABEL' found: $DEVICE"
-
-    # Check if it's already mounted
-    if findmnt -n "$DEVICE" >/dev/null 2>&1; then
-      echo "Device is already mounted."
-    else
-      echo "Mounting device: $DEVICE to $MOUNT_POINT"
-
-      # Create the mount point if it doesn't exist
-      [ ! -d "$MOUNT_POINT" ] && sudo mkdir -p "$MOUNT_POINT"
-
-      # Mount the device
-      if sudo mount -t ntfs-3g "$DEVICE" "$MOUNT_POINT"; then
-        echo "Device mounted successfully at $MOUNT_POINT"
-      else
-        echo "Failed to mount the device."
-      fi
-    fi
+  # Check if it's already mounted
+  if findmnt -n "$DEVICE" >/dev/null 2>&1; then
+    echo "Device is already mounted."
   else
-    echo "Device with label '$LABEL' not found"
+    echo "Mounting device: $DEVICE to $MOUNT_POINT"
+
+    # Create the mount point if it doesn't exist
+    [ ! -d "$MOUNT_POINT" ] && sudo mkdir -p "$MOUNT_POINT"
+
+    # Mount the device
+    if sudo mount -t "$FSTYPE" "$DEVICE" "$MOUNT_POINT"; then
+      echo "Device mounted successfully at $MOUNT_POINT"
+    else
+      echo "Failed to mount the device."
+    fi
   fi
 }
 
-LABEL1="Sicherung_1"
-MOUNT_POINT1="/mnt/$LABEL1"
+echo "Detecting external drives for mounting..."
 
-LABEL2="Sicherung_2"
-MOUNT_POINT2="/mnt/$LABEL2"
+# Get all external devices with a label (adjust filter as needed)
+lsblk -o NAME,FSTYPE,LABEL,TYPE,MOUNTPOINT -pn | grep -w part | grep -E "sdb|sdc" | sed 's/└─//' | while read -r LINE; do
+  echo "$LINE"
+  DEVICE=$(echo "$LINE" | awk '{print $1}')
+  FSTYPE=$(echo "$LINE" | awk '{print $2}')
+  LABEL=$(echo "$LINE" | awk '{print $3}')
 
-mount_hdd "$LABEL1" "$MOUNT_POINT1"
-mount_hdd "$LABEL2" "$MOUNT_POINT2"
+  # Only process devices with labels
+  [ -n "$LABEL" ] && mount_hdd "$DEVICE" "$LABEL" "$FSTYPE"
+done
