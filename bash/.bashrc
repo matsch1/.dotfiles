@@ -31,6 +31,13 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
 # ====================
+# TMUX autostart
+# ====================
+if [[ -z $TMUX ]]; then
+  tmux
+fi
+
+# ====================
 # Keybindings
 # ====================
 # Vim keybindings for bash
