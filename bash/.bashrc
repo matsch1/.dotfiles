@@ -14,6 +14,7 @@ export COMPOSE_DOCKER_CLI_BUILD=0
 export ANDROID_HOME=$HOME/android-sdk
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:/usr/local/go/bin
 
 # ====================
 # Aliases
