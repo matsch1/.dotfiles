@@ -33,9 +33,7 @@ PS1='[\u@\h \W]\$ '
 # ====================
 # TMUX autostart
 # ====================
-if [[ -z $TMUX ]]; then
-  tmux
-fi
+[[ -z $TMUX ]] && tmux
 
 # ====================
 # Keybindings
