@@ -13,6 +13,9 @@ require("neo-tree").setup({
   },
 })
 
+-- Flutter-tools
+require("flutter-tools").setup({}) -- use defaults
+
 -- Keybindings
 
 -- Window navigation
