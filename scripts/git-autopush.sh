@@ -10,6 +10,7 @@ git-autopush() {
   # Check if the repository has changes
   if [[ -n $(git status --porcelain) ]]; then
     git add .
+    git status
 
     TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
     git commit -m "Auto-commit: $TIMESTAMP"
