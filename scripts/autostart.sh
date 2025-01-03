@@ -27,3 +27,8 @@ done
 echo start conky
 pkill conky
 conky
+
+# Start synchting for getting actual obsidan files
+echo update Obsidian files ...
+syncthing
+# ~/.dotfiles/scripts/git-autopush.sh ~/Obsidian/
