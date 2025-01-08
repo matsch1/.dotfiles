@@ -7,6 +7,7 @@ mount_googledrive_directory() {
   remotepath="Googledrive:$path2mount"
   [ ! -d "$localpath" ] && mkdir -p "$localpath"
   rclone mount "$remotepath" "$localpath" --daemon --vfs-cache-mode=writes
+  echo "$remotepath mounted succesfully"
 }
 
 # =========================== autostart ====================================
@@ -22,7 +23,7 @@ declare -a paths=(
 for Path2Mount in "${paths[@]}"; do
   mount_googledrive_directory "$Path2Mount"
 done
-
+a
 # start conky
 echo start conky
 pkill conky
@@ -31,4 +32,3 @@ conky
 # Start synchting for getting actual obsidan files
 echo update Obsidian files ...
 syncthing
-# ~/.dotfiles/scripts/git-autopush.sh ~/Obsidian/
