@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo backup obsidian to git
-~/.dotfiles/scripts/git-autopush.sh "~/Obsidian/"
+~/.dotfiles/scripts/git-autopush.sh ~/Obsidian/

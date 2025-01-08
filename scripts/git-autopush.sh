@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git-autopush() {
-  REPO_DIR = $1
+  REPO_DIR=$1
   cd "$REPO_DIR" || {
     echo "Repository not found: $REPO_DIR"
     exit 1
