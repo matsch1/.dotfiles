@@ -15,6 +15,7 @@ export ANDROID_HOME=/home/matsch/android-sdk
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:/usr/local/go/bin
+source ~/Files/Documents/.env || echo "No secrets to import"
 
 # ====================
 # Aliases
