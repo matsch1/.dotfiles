@@ -9,9 +9,7 @@ SYNC_URL="http://127.0.0.1:8384/rest/db/scan?folder=$SYNCTHING_OBSIDIAN_FOLDER_I
 # Trigger the sync
 response=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "X-API-Key: $SYNCTHING_API_KEY" $SYNC_URL)
 
-if [ "$response" -eq 200 ]; then
-  echo "Sync triggered successfully. Monitoring sync status..."
-else
+if [ "$response" -ne 200 ]; then
   echo "Failed to trigger sync. HTTP status: $response"
   exit 1
 fi
