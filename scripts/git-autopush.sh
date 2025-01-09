@@ -7,6 +7,7 @@ git-autopush() {
     exit 1
   }
 
+  echo "Git autopush ${REPO_DIR}"
   # Check if the repository has changes
   if [[ -n $(git status --porcelain) ]]; then
     git add .
