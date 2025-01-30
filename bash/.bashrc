@@ -51,4 +51,6 @@ set -o vi
 # ====================
 # Oh My Posh Configuration
 # ====================
+# git clone  https://github.com/JanDeDobbeleer/oh-my-posh.git
+# move directory to ~/.config
 eval "$(oh-my-posh --init --shell bash --config ~/.config/oh-my-posh/themes/slimfat.omp.json)"
