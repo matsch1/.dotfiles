@@ -15,6 +15,7 @@ export ANDROID_HOME=/home/matsch/android-sdk
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/bin
 source ~/Files/Documents/.env || echo "No secrets to import"
 
 # ====================
@@ -22,9 +23,23 @@ source ~/Files/Documents/.env || echo "No secrets to import"
 # ====================
 alias ls='ls --color=auto'
 alias ll='ls -lah'
-alias bat='batcat'
 alias ..='cd ..'
 alias grep='grep --color=auto'
+
+# Optional aliases, if exist
+# sudo pacman -S eza
+if command -v exa &>/dev/null; then
+  alias ls='eza'
+fi
+# sudo pacman -S bat
+if command -v bat &>/dev/null; then
+  alias cat='bat'
+fi
+# curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init bash)"
+  alias cd='z'
+fi
 
 # ====================
 # Prompt Configuration
