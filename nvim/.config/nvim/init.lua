@@ -13,6 +13,9 @@ require("neo-tree").setup({
   },
 })
 
+-- Flutter-tools
+require("flutter-tools").setup({}) -- use defaults
+
 -- Keybindings
 
 -- Window navigation
@@ -20,6 +23,8 @@ vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<Tab>", ":bprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
 
 -- Neo-tree keybindings
 vim.keymap.set("n", "<C-e>", ":Neotree toggle<CR>", { noremap = true, silent = true }) -- Toggle Neo-tree
