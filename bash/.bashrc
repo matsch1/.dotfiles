@@ -41,6 +41,10 @@ if command -v zoxide &>/dev/null; then
   alias cd='z'
 fi
 
+# project aliases
+alias devshellmaster='~/.dotfiles/scripts/start_tmux.sh ~/src/shellmaster/'
+alias devgoalpacer='~/.dotfiles/scripts/start_tmux.sh ~/src/goalpacer/'
+
 # ====================
 # Prompt Configuration
 # ====================
