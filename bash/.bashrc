@@ -16,7 +16,7 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/bin
-source ~/Files/Documents/.env || echo "No secrets to import"
+[ -f "~/Files/Documents/.env" ] && source ~/Files/Documents/.env
 
 # ====================
 # Aliases
@@ -24,26 +24,25 @@ source ~/Files/Documents/.env || echo "No secrets to import"
 alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias ..='cd ..'
+alias ~='cd ~'
 alias grep='grep --color=auto'
 
-# Optional aliases, if exist
+# === tools ===
 # sudo pacman -S eza
-if command -v exa &>/dev/null; then
-  alias ls='eza'
-fi
+[ command -v exa ] &>/dev/null && alias ls='eza'
+
 # sudo pacman -S bat
-if command -v bat &>/dev/null; then
-  alias cat='bat'
-fi
+[ command -v bat ] &>/dev/null && alias cat='bat'
+
 # curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-if command -v zoxide &>/dev/null; then
+[ command -v zoxide ] &>/dev/null && (
   eval "$(zoxide init bash)"
   alias cd='z'
-fi
+)
 
-# project aliases
-alias devshellmaster='~/.dotfiles/scripts/start_tmux.sh ~/src/shellmaster/'
-alias devgoalpacer='~/.dotfiles/scripts/start_tmux.sh ~/src/goalpacer/'
+# === projects ===
+[ -d "~/src/goalpacer/" ] && alias devgoalpacer='~/.dotfiles/scripts/start_tmux.sh ~/src/goalpacer/'
+[ -d "~/src/shellmaster/" ] && alias devshellmaster='~/.dotfiles/scripts/start_tmux.sh ~/src/shellmaster/'
 
 # ====================
 # Prompt Configuration
