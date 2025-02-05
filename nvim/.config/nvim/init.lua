@@ -25,6 +25,19 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
+-- close current buffer
+vim.api.nvim_create_user_command("Q", function()
+  local bufs = vim.tbl_filter(function(buf)
+    return vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted
+  end, vim.api.nvim_list_bufs())
+
+  if #bufs > 1 then
+    vim.cmd("bnext") -- Switch to the next buffer
+    vim.cmd("bd #") -- Delete the previous buffer
+  else
+    print("Cannot close last buffer!")
+  end
+end, {})
 
 -- Neo-tree keybindings
 vim.keymap.set("n", "<C-e>", ":Neotree toggle<CR>", { noremap = true, silent = true }) -- Toggle Neo-tree
