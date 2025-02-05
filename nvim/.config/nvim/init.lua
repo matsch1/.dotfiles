@@ -51,11 +51,3 @@ vim.keymap.set("n", "<C-w>", function()
     vim.cmd("Neotree focus") -- Focus Neo-tree
   end
 end, { noremap = true, silent = true })
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.wrap = true -- Enable text wrapping
-  opts.max_width = math.floor(vim.o.columns * 0.7) -- Adjust width dynamically
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
