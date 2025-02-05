@@ -51,3 +51,15 @@ vim.keymap.set("n", "<C-w>", function()
     vim.cmd("Neotree focus") -- Focus Neo-tree
   end
 end, { noremap = true, silent = true })
+
+vim.diagnostic.config({
+  virtual_text = false, -- Disable inline text (optional)
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    header = "",
+    prefix = "",
+    wrap = true, -- Enable text wrapping in floating windows
+  },
+})
