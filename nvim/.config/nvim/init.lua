@@ -25,6 +25,7 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
+
 -- close current buffer
 vim.api.nvim_create_user_command("Q", function()
   local bufs = vim.tbl_filter(function(buf)
@@ -38,9 +39,6 @@ vim.api.nvim_create_user_command("Q", function()
     print("Cannot close last buffer!")
   end
 end, {})
-
--- Neo-tree keybindings
-vim.keymap.set("n", "<C-e>", ":Neotree toggle<CR>", { noremap = true, silent = true }) -- Toggle Neo-tree
 
 -- Toggle focus between Neo-tree and editor using Ctrl+w
 vim.keymap.set("n", "<C-w>", function()
