@@ -25,6 +25,8 @@ export PATH=$PATH:/usr/bin
 alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias ~='cd ~'
 alias grep='grep --color=auto'
 alias find='find . -type f'
