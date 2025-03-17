@@ -93,16 +93,20 @@ findpkg() {
 
 # === tools ===
 # sudo pacman -S eza
-[ command -v exa ] &>/dev/null && alias ls='eza'
+if command -v exa >/dev/null 2>&1; then
+  alias ls='eza'
+fi
 
 # sudo pacman -S bat
-[ command -v bat ] &>/dev/null && alias cat='bat'
+if command -v bat >/dev/null 2>&1; then
+  alias cat='bat'
+fi
 
 # curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-[ command -v zoxide ] &>/dev/null && (
+if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
   alias cd='z'
-)
+fi
 
 # === projects ===
 [ -d ~/src/goalpacer/ ] && alias devgoalpacer='~/.dotfiles/scripts/start_tmux.sh ~/src/goalpacer/'
@@ -135,4 +139,6 @@ set -o vi
 # ====================
 # git clone  https://github.com/JanDeDobbeleer/oh-my-posh.git
 # move directory to ~/.config
-eval "$(oh-my-posh --init --shell bash --config ~/.config/oh-my-posh/themes/slimfat.omp.json)"
+if command -v oh-my-posh >/dev/null 2>&1; then
+  eval "$(oh-my-posh --init --shell bash --config ~/.config/oh-my-posh/themes/slimfat.omp.json)"
+fi
