@@ -25,16 +25,6 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bnext<CR>", { noremap = true, silent = true })
-
--- Toggle focus between Neo-tree and editor using Ctrl+w
-vim.keymap.set("n", "<C-w>", function()
-  -- Check if the current window is Neo-tree
-  if vim.bo.filetype == "neo-tree" then
-    vim.cmd("wincmd l") -- Move focus to the next window
-  else
-    vim.cmd("Neotree focus") -- Focus Neo-tree
-  end
-end, { noremap = true, silent = true })
 vim.keymap.set("n", "<S-q>", ":bdelete<CR>", { noremap = true, silent = true })
 
 vim.diagnostic.config({
