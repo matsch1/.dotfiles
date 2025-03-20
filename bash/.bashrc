@@ -139,7 +139,7 @@ set -o vi
 # ====================
 # Oh My Posh Configuration
 # ====================
-# git clone  https://github.com/JanDeDobbeleer/oh-my-posh.git
+# git clone https://github.com/JanDeDobbeleer/oh-my-posh.git
 # move directory to ~/.config
 if command -v oh-my-posh >/dev/null 2>&1; then
   eval "$(oh-my-posh --init --shell bash --config ~/.config/oh-my-posh/themes/slimfat.omp.json)"
