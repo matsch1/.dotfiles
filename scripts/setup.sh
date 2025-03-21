@@ -32,15 +32,12 @@ install_package() {
   package=$1
 
   # Check OS
-  os=$(grep '^ID=' /etc/os-release | cut -d= -f2 | tr -d '"')
-  debian_os=("debian" "ubuntu" "pop" "linuxmint" "elementary" "zorin" "kali" "parrot" "raspbian" "devuan")
-  arch_os=("arch" "manjaro" "endeavouros" "arcolinux" "garuda" "artix" "blackarch" "rebornos")
-
+  os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
   # Set installation command
-  if [[ " ${debian_os[@]} " =~ " $os " ]]; then
+  if [[ $os == "debian" ]]; then
     echo "Debian based system"
     installCmd="sudo apt-get install -y"
-  elif [[ " ${debian_os[@]} " =~ " $os " ]]; then
+  elif [[ $os == "arch" ]]; then
     echo "Arch based system"
     installCmd="sudo pacman -S --noconfirm"
   else
