@@ -7,18 +7,22 @@
 # stows dotfiles for installed packages.
 
 # Usage:
-#   ./install_packages.sh [USER] [PACKAGE1] [PACKAGE2] ...
+#   ./install_packages.sh [USER] [NOCONFIRM] [PACKAGE1] [PACKAGE2] ...
 #
 #   - USER (optional): The username for whom the packages will be installed. Defaults to the current user.
+#   - NOCONFIRM (optional): Skip confirmation. Defaults is "Ask for confirmation".
 #   - PACKAGE1, PACKAGE2, ... (optional): List of packages to install. If not provided, a default list is used.
 #
 
 # user
 user=${1:-$USER}
 
+# noconfirm
+noconfirm=${2:-false}
+
 # List of packages to install
-if [[ $# -gt 1 ]]; then
-  packages=("${@:2}") # Use arguments starting from position 2
+if [[ $# -gt 2 ]]; then
+  packages=("${@:3}") # Use arguments starting from position 2
 else
   packages=("stow" "bash" "git" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
 fi
@@ -70,14 +74,22 @@ write_log() {
 }
 
 # ############### INSTALLATION ####################
-read -p "Install for user $user? (y/n): " choice
-if [[ "$choice" != "y" ]]; then
+if [[ $noconfirm == false ]]; then
+  read -p "Install for user $user? (y/n): " choice
+else
+  choice=y
+fi
+if [[ "$choice" != "y" && "$choice" != "Y" ]]; then
   echo "Exit by user"
   exit 1
 fi
 
 for package in "${packages[@]}"; do
-  read -p "Install $package? (y/n): " choice
+  if [[ $noconfirm == false ]]; then
+    read -p "Install $package? (y/n): " choice
+  else
+    choice=y
+  fi
   if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     install_package "$package"
     (stow -d .. -t /home/$user $package && echo "$package stowed succesfully") || echo "No dotfiles for $package"
