@@ -20,7 +20,7 @@ user=${1:-$USER}
 if [[ $# -gt 1 ]]; then
   packages=("${@:2}") # Use arguments starting from position 2
 else
-  packages=("stow" "bash" "git" "tmux" "fzf" "neovim" "conky" "alacritty")
+  packages=("stow" "bash" "git" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
 fi
 
 # Function to install a package
@@ -46,7 +46,14 @@ install_package() {
 
   # Install the package
   echo "Installing $package"
-  $installCmd "$package"
+  if [[ $package == "zoxide"]]; then
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  elif [[ $package == "oh-my-posh"]]; then 
+    git clone https://github.com/JanDeDobbeleer/oh-my-posh.git /home/$user/.config
+  else
+    $installCmd "$package"
+  fi
+
   write_log "$package"
 }
 
