@@ -47,9 +47,29 @@ install_package() {
 
   # Install the package
   echo "Installing $package"
-  if [[ $package == "zoxide"]]; then
+  if [[ $package == "bash" ]]; then
+    echo "bash already installed"
+  elif [[ $package == "neovim" ]]; then
+    if [[ $os == "debian" ]]; then
+      for package in ninja-build gettext cmake unzip curl build-essential; do
+        $installCmd "$package"
+      done
+    elif [[ $os == "arch" ]]; then
+      for package in base-devel cmake unzip ninja curl; do
+        $installCmd "$package"
+      done
+    fi
+    git clone https://github.com/neovim/neovim
+    cd neovim
+    git checkout stable
+    make CMAKE_BUILD_TYPE=RelWithDebInfo
+
+    sudo make install
+    cd ..
+    rm -rf neovim
+  elif [[ $package == "zoxide" ]]; then
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-  elif [[ $package == "oh-my-posh"]]; then 
+  elif [[ $package == "oh-my-posh" ]]; then
     git clone https://github.com/JanDeDobbeleer/oh-my-posh.git /home/$user/.config
   else
     $installCmd "$package"
