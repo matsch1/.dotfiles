@@ -27,23 +27,25 @@ else
   packages=("stow" "bash" "git" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
 fi
 
+# Check OS
+os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
+
+# Set installation command
+if [[ $os == "debian" ]]; then
+  echo "Debian based system"
+  installCmd="sudo apt-get install -y"
+elif [[ $os == "arch" ]]; then
+  echo "Arch based system"
+  installCmd="sudo pacman -S --noconfirm"
+else
+  echo "Unsupported OS: $os"
+  return 1
+fi
+
 # Function to install a package
 install_package() {
-  package=$1
-
-  # Check OS
-  os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
-  # Set installation command
-  if [[ $os == "debian" ]]; then
-    echo "Debian based system"
-    installCmd="sudo apt-get install -y"
-  elif [[ $os == "arch" ]]; then
-    echo "Arch based system"
-    installCmd="sudo pacman -S --noconfirm"
-  else
-    echo "Unsupported OS: $os"
-    return 1
-  fi
+  installCmd=$1
+  package=$2
 
   # Install the package
   echo "Installing $package"
@@ -63,12 +65,12 @@ install_package() {
     cd neovim
     git checkout stable
     make CMAKE_BUILD_TYPE=RelWithDebInfo
-
     sudo make install
     cd ..
     rm -rf neovim
   elif [[ $package == "zoxide" ]]; then
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+    sudo mv ~/.local/bin/zoxide /usr/local/bin/zoxide
   elif [[ $package == "oh-my-posh" ]]; then
     curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/local/bin
     git clone https://github.com/ryanoasis/nerd-fonts.git ./nerd-fonts
@@ -116,7 +118,7 @@ for package in "${packages[@]}"; do
     choice=y
   fi
   if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    install_package "$package"
+    install_package "$installCmd" "$package"
     (stow -d .. -t /home/$user $package && echo "$package stowed succesfully") || echo "No dotfiles for $package"
   else
     echo "Installation skipped."
