@@ -108,6 +108,7 @@ fi
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
   alias cd='z'
+  _ZO_DOCTOR=0
 fi
 
 # === projects ===
@@ -142,5 +143,5 @@ set -o vi
 # git clone https://github.com/JanDeDobbeleer/oh-my-posh.git
 # move directory to ~/.config
 if command -v oh-my-posh >/dev/null 2>&1; then
-  eval "$(oh-my-posh --init --shell bash --config ~/.config/oh-my-posh/themes/slimfat.omp.json)"
+  eval "$(oh-my-posh --init --shell bash --config ~/.cache/oh-my-posh/themes/slimfat.omp.json)"
 fi

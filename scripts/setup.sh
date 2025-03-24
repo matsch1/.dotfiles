@@ -70,7 +70,15 @@ install_package() {
   elif [[ $package == "zoxide" ]]; then
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
   elif [[ $package == "oh-my-posh" ]]; then
-    git clone https://github.com/JanDeDobbeleer/oh-my-posh.git /home/$user/.config
+    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/local/bin
+    git clone https://github.com/ryanoasis/nerd-fonts.git ./nerd-fonts
+    ./nerd-fonts/install.sh FiraCode
+    rm -rf ./nerd-fonts
+  elif [[ $package == "tmux" ]]; then
+    $installCmd "$package"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    tmux send-keys "C-s-r"
+    tmux send-keys "C-s-I"
   else
     $installCmd "$package"
   fi
