@@ -30,3 +30,4 @@ vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
 vim.g.background = "light"
+vim.g.lazyvim_picker = "telescope"
