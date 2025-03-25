@@ -112,8 +112,8 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 
 # === projects ===
-[ -d ~/src/goalpacer/ ] && alias devgoalpacer='~/.dotfiles/scripts/start_tmux.sh ~/src/goalpacer/'
-[ -d ~/src/shellmaster/ ] && alias devshellmaster='~/.dotfiles/scripts/start_tmux.sh ~/src/shellmaster/'
+# [ -d ~/src/goalpacer/ ] && alias devgoalpacer='~/.dotfiles/scripts/start_tmux.sh ~/src/goalpacer/'
+# [ -d ~/src/shellmaster/ ] && alias devshellmaster='~/.dotfiles/scripts/start_tmux.sh ~/src/shellmaster/'
 
 # ====================
 # Prompt Configuration
@@ -121,9 +121,9 @@ fi
 PS1='[\u@\h \W]\$ '
 
 # ====================
-# TMUX autostart
+# Zellij autostart
 # ====================
-[[ -z $TMUX ]] && tmux
+[[ -z $ZELLIJ ]] && zellij
 
 # ====================
 # Keybindings
