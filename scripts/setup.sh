@@ -24,7 +24,7 @@ noconfirm=${2:-false}
 if [[ $# -gt 2 ]]; then
   packages=("${@:3}") # Use arguments starting from position 2
 else
-  packages=("stow" "bash" "git" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
+  packages=("stow" "bash" "git" "zellij" tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
 fi
 
 # Check OS
@@ -51,6 +51,19 @@ install_package() {
   echo "Installing $package"
   if [[ $package == "bash" ]]; then
     echo "bash already installed"
+  elif [[ $package == "zellij" ]]; then
+    if [[ $os == "debian" ]]; then
+      ASSET= zellij-x86_64-unknown-linux-musl.tar.gz
+    elif [[ $os == "arch" ]]; then
+      ASSET= zellij-aarch64-unknown-linux-musl.tar.gz
+    fi
+    LATEST_URL=$(curl -s "https://api.github.com/repos/zellij-org/zellij/releases/latest" | \
+    grep "browser_download_url" | grep "$ASSET" | cut -d '"' -f 4)
+    curl -LO "LATEST_URL"
+    tar -xvz zellij*.tar.gz
+    sudo chmod +x zellij
+    sudo mv zellij /usr/local/bin/
+    rm -rf "$ASSET"
   elif [[ $package == "neovim" ]]; then
     if [[ $os == "debian" ]]; then
       for package in ninja-build gettext cmake unzip curl build-essential; do
@@ -72,7 +85,7 @@ install_package() {
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
     sudo mv ~/.local/bin/zoxide /usr/local/bin/zoxide
   elif [[ $package == "oh-my-posh" ]]; then
-    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/local/bin
+    curl -s https://ohmyposh.dev/install.sh | bash -s
     git clone https://github.com/ryanoasis/nerd-fonts.git ./nerd-fonts
     ./nerd-fonts/install.sh FiraCode
     rm -rf ./nerd-fonts
