@@ -14,113 +14,141 @@
 #   - PACKAGE1, PACKAGE2, ... (optional): List of packages to install. If not provided, a default list is used.
 #
 
-# user
-user=${1:-$USER}
-
-# noconfirm
-noconfirm=${2:-false}
-
-# List of packages to install
-if [[ $# -gt 2 ]]; then
-  packages=("${@:3}") # Use arguments starting from position 2
-else
-  packages=("stow" "bash" "git" "zellij" tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
-fi
-
-# Check OS
-os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
-
-# Set installation command
-if [[ $os == "debian" ]]; then
-  echo "Debian based system"
-  installCmd="sudo apt-get install -y"
-elif [[ $os == "arch" ]]; then
-  echo "Arch based system"
-  installCmd="sudo pacman -S --noconfirm"
-else
-  echo "Unsupported OS: $os"
-  return 1
-fi
-
-# Function to install a package
-install_package() {
-  installCmd=$1
+# Function to stow package configuration
+stow_package() {
+  user=$1
   package=$2
-
-  # Install the package
-  echo "Installing $package"
-  if [[ $package == "bash" ]]; then
-    echo "bash already installed"
-  elif [[ $package == "neovim" ]]; then
-    if [[ $os == "debian" ]]; then
-      for package in ninja-build gettext cmake unzip curl build-essential; do
-        $installCmd "$package"
-      done
-    elif [[ $os == "arch" ]]; then
-      for package in base-devel cmake unzip ninja curl; do
-        $installCmd "$package"
-      done
+  if command -v stow >/dev/null 2>&1; then
+    if [[ -d "../$package" ]]; then
+      stow -d .. -t /home/$user "$package" && echo "$package stowed successfully"
+    else
+      echo "No dotfiles for $package!"
     fi
-    git clone https://github.com/neovim/neovim
-    cd neovim
-    git checkout stable
-    make CMAKE_BUILD_TYPE=RelWithDebInfo
-    sudo make install
-    cd ..
-    rm -rf neovim
-  elif [[ $package == "zoxide" ]]; then
-    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-    sudo mv ~/.local/bin/zoxide /usr/local/bin/zoxide
-  elif [[ $package == "oh-my-posh" ]]; then
-    curl -s https://ohmyposh.dev/install.sh | bash -s
-    git clone https://github.com/ryanoasis/nerd-fonts.git ./nerd-fonts
-    ./nerd-fonts/install.sh FiraCode
-    rm -rf ./nerd-fonts
-  elif [[ $package == "tmux" ]]; then
-    $installCmd "$package"
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    tmux send-keys "C-s-r"
-    tmux send-keys "C-s-I"
   else
-    $installCmd "$package"
+    echo "Requires stow. Please install!"
   fi
-
-  write_log "$package"
 }
 
-# Function to write installation log
+# Function to install a package normally
+install_package() {
+  package=$1
+  echo "Installing $package..."
+  $installCmd "$package" && write_log "$package"
+}
+
+# Function to log installation results
 write_log() {
   package=$1
   log_file="$HOME/setup-log.txt"
-
-  if type -p "$package" >/dev/null; then
+  if command -v "$package" &>/dev/null; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $package Installed" >>"$log_file"
   else
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $package FAILED TO INSTALL!!!" >>"$log_file"
   fi
 }
 
-# ############### INSTALLATION ####################
+# Define a mapping of packages to special installation functions
+declare -A special_installers=(
+  ["neovim"]="install_neovim"
+  ["zoxide"]="install_zoxide"
+  ["oh-my-posh"]="install_oh_my_posh"
+  ["tmux"]="install_tmux"
+)
+
+# Special installation functions
+install_neovim() {
+  dependencies=("ninja-build" "gettext" "cmake" "unzip" "curl" "build-essential")
+  [[ $os == "arch" ]] && dependencies=("base-devel" "cmake" "unzip" "ninja" "curl")
+
+  for pkg in "${dependencies[@]}"; do
+    install_package "$pkg"
+  done
+
+  git clone https://github.com/neovim/neovim
+  cd neovim || exit
+  git checkout stable
+  make CMAKE_BUILD_TYPE=RelWithDebInfo
+  sudo make install
+  cd ..
+  rm -rf neovim
+  write_log "neovim"
+}
+
+install_zoxide() {
+  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  sudo mv ~/.local/bin/zoxide /usr/local/bin/zoxide
+  write_log "zoxide"
+}
+
+install_oh_my_posh() {
+  curl -s https://ohmyposh.dev/install.sh | bash -s
+  git clone https://github.com/ryanoasis/nerd-fonts.git ./nerd-fonts
+  ./nerd-fonts/install.sh FiraCode
+  rm -rf ./nerd-fonts
+  write_log "oh-my-posh"
+}
+
+install_tmux() {
+  install_package "tmux"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  tmux send-keys "C-s-r"
+  tmux send-keys "C-s-I"
+  write_log "tmux"
+}
+
+########################################################################
+
+# Detect user and confirmation mode
+user=${1:-$USER}
+noconfirm=${2:-false}
+
+# List of default packages
+if [[ $# -gt 2 ]]; then
+  packages=("${@:3}")
+else
+  packages=("stow" "bash" "git" "zellij" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
+fi
+
+# Determine OS
+os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
+
+# Set package manager command
+if [[ $os == "debian" ]]; then
+  echo "Debian based system detected"
+  installCmd="sudo apt-get install -y"
+elif [[ $os == "arch" ]]; then
+  echo "Arch based system detected"
+  installCmd="sudo pacman -S --noconfirm"
+else
+  echo "Unsupported OS: $os"
+  exit 1
+fi
+# Confirmation prompt
 if [[ $noconfirm == false ]]; then
   read -p "Install for user $user? (y/n): " choice
 else
   choice=y
 fi
-if [[ "$choice" != "y" && "$choice" != "Y" ]]; then
-  echo "Exit by user"
-  exit 1
-fi
+[[ "$choice" != "y" && "$choice" != "Y" ]] && echo "Exit by user" && exit 1
 
+# Install packages from packages list
 for package in "${packages[@]}"; do
   if [[ $noconfirm == false ]]; then
     read -p "Install $package? (y/n): " choice
   else
     choice=y
   fi
+
   if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    install_package "$installCmd" "$package"
-    (stow -d .. -t /home/$user $package && echo "$package stowed succesfully") || echo "No dotfiles for $package"
+    if [[ -n "${special_installers[$package]}" ]]; then
+      ${special_installers[$package]}
+    else
+      install_package "$package"
+    fi
+
+    # Stow dotfiles if available
+    stow_package $user $package
   else
-    echo "Installation skipped."
+    echo "Skipping $package..."
   fi
 done
