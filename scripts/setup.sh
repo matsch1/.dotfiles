@@ -53,9 +53,20 @@ declare -A special_installers=(
   ["zoxide"]="install_zoxide"
   ["oh-my-posh"]="install_oh_my_posh"
   ["tmux"]="install_tmux"
+  ["zsh"]="install_zsh"
 )
 
 # Special installation functions
+install_zsh() {
+  install_package "zsh"
+  chsh -s $(which zsh)
+  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+
+  write_log "neovim"
+}
+
 install_neovim() {
   dependencies=("ninja-build" "gettext" "cmake" "unzip" "curl" "build-essential")
   [[ $os == "arch" ]] && dependencies=("base-devel" "cmake" "unzip" "ninja" "curl")
