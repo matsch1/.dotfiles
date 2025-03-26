@@ -96,8 +96,64 @@ install_tmux() {
   write_log "tmux"
 }
 
-########################################################################
+setup() {
+  # Detect user and confirmation mode
+  user=${1:-$USER}
+  noconfirm=${2:-false}
 
+  # List of default packages
+  if [[ $# -gt 2 ]]; then
+    packages=("${@:3}")
+  else
+    packages=("stow" "bash" "git" "zellij" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
+  fi
+
+  # Determine OS
+  os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
+
+  # Set package manager command
+  if [[ $os == "debian" ]]; then
+    echo "Debian based system detected"
+    installCmd="sudo apt-get install -y"
+  elif [[ $os == "arch" ]]; then
+    echo "Arch based system detected"
+    installCmd="sudo pacman -S --noconfirm"
+  else
+    echo "Unsupported OS: $os"
+    exit 1
+  fi
+  # Confirmation prompt
+  if [[ $noconfirm == false ]]; then
+    read -p "Install for user $user? (y/n): " choice
+  else
+    choice=y
+  fi
+  [[ "$choice" != "y" && "$choice" != "Y" ]] && echo "Exit by user" && exit 1
+
+  # Install packages from packages list
+  for package in "${packages[@]}"; do
+    if [[ $noconfirm == false ]]; then
+      read -p "Install $package? (y/n): " choice
+    else
+      choice=y
+    fi
+
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+      if [[ -n "${special_installers[$package]}" ]]; then
+        ${special_installers[$package]}
+      else
+        install_package "$package"
+      fi
+
+      # Stow dotfiles if available
+      stow_package $user $package
+    else
+      echo "Skipping $package..."
+    fi
+  done
+
+}
+########################################################################
 # Detect user and confirmation mode
 user=${1:-$USER}
 noconfirm=${2:-false}
@@ -109,46 +165,4 @@ else
   packages=("stow" "bash" "git" "zellij" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
 fi
 
-# Determine OS
-os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
-
-# Set package manager command
-if [[ $os == "debian" ]]; then
-  echo "Debian based system detected"
-  installCmd="sudo apt-get install -y"
-elif [[ $os == "arch" ]]; then
-  echo "Arch based system detected"
-  installCmd="sudo pacman -S --noconfirm"
-else
-  echo "Unsupported OS: $os"
-  exit 1
-fi
-# Confirmation prompt
-if [[ $noconfirm == false ]]; then
-  read -p "Install for user $user? (y/n): " choice
-else
-  choice=y
-fi
-[[ "$choice" != "y" && "$choice" != "Y" ]] && echo "Exit by user" && exit 1
-
-# Install packages from packages list
-for package in "${packages[@]}"; do
-  if [[ $noconfirm == false ]]; then
-    read -p "Install $package? (y/n): " choice
-  else
-    choice=y
-  fi
-
-  if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    if [[ -n "${special_installers[$package]}" ]]; then
-      ${special_installers[$package]}
-    else
-      install_package "$package"
-    fi
-
-    # Stow dotfiles if available
-    stow_package $user $package
-  else
-    echo "Skipping $package..."
-  fi
-done
+setup $user $noconfirm ${packages[@]}
