@@ -18,6 +18,7 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/bin
+export PATH=$PATH:~/go/bin
 [ -f "~/Files/Documents/.env" ] && source ~/Files/Documents/.env
 
 # ====================

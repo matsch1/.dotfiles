@@ -53,9 +53,23 @@ declare -A special_installers=(
   ["zoxide"]="install_zoxide"
   ["oh-my-posh"]="install_oh_my_posh"
   ["tmux"]="install_tmux"
+  ["lazygit"]="install_lazygit"
 )
 
 # Special installation functions
+install_go() {
+  wget https://go.dev/dl/go1.24.1.linux-amd64.tar.gz
+  sudo tar -C /usr/local -xzf go1.24.1.linux-amd64.tar.gz
+  rm go1.24.1.linux-amd64.tar.gz
+}
+
+install_lazygit() {
+  if command -v go >/dev/null 2>&1; then
+    go install github.com/jesseduffield/lazygit@latest
+  else
+    install_go
+  fi
+}
 install_neovim() {
   dependencies=("ninja-build" "gettext" "cmake" "unzip" "curl" "build-essential")
   [[ $os == "arch" ]] && dependencies=("base-devel" "cmake" "unzip" "ninja" "curl")
