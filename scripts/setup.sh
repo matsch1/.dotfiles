@@ -53,6 +53,7 @@ declare -A special_installers=(
   ["zoxide"]="install_zoxide"
   ["oh-my-posh"]="install_oh_my_posh"
   ["tmux"]="install_tmux"
+  ["go"]="install_go"
   ["zsh"]="install_zsh"
   ["lazygit"]="install_lazygit"
 )
