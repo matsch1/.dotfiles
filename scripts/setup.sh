@@ -97,6 +97,7 @@ install_neovim() {
   sudo make install
   cd ..
   rm -rf neovim
+  install_package gcc
   write_log "neovim"
 }
 
