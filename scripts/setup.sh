@@ -20,7 +20,7 @@ stow_package() {
   package=$2
   if command -v stow >/dev/null 2>&1; then
     if [[ -d "../$package" ]]; then
-      stow -d .. -t /home/$user "$package" && echo "$package stowed successfully"
+      stow -d .. -t "/home/$user" "$package" && echo "$package stowed successfully"
     else
       echo "No dotfiles for $package!"
     fi
@@ -75,7 +75,7 @@ install_lazygit() {
 
 install_zsh() {
   install_package "zsh"
-  chsh -s $(which zsh)
+  chsh -s "$(which zsh)"
   sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/plugins/zsh-autosuggestions
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
@@ -152,7 +152,7 @@ setup() {
   fi
   # Confirmation prompt
   if [[ $noconfirm == false ]]; then
-    read -p "Install for user $user? (y/n): " choice
+    read -rp "Install for user $user? (y/n): " choice
   else
     choice=y
   fi
@@ -174,7 +174,7 @@ setup() {
       fi
 
       # Stow dotfiles if available
-      stow_package $user $package
+      stow_package "$user" "$package"
     else
       echo "Skipping $package..."
     fi
@@ -193,4 +193,4 @@ else
   packages=("stow" "bash" "git" "zellij" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
 fi
 
-setup $user $noconfirm ${packages[@]}
+setup "$user" "$noconfirm" "${packages[@]}"
