@@ -76,11 +76,12 @@ install_lazygit() {
 install_zsh() {
   install_package "zsh"
   chsh -s "$(which zsh)"
-  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
   git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/plugins/zsh-autosuggestions
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
 
-  write_log "neovim"
+  rm ~/.zshrc
+  write_log "zsh"
 }
 
 install_neovim() {
