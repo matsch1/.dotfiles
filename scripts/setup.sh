@@ -89,8 +89,11 @@ declare -A special_installers=(
 
 # Special installation functions
 install_go() {
-  wget https://go.dev/dl/go1.24.1.linux-amd64.tar.gz
-  sudo tar -C /usr/local -xzf go1.24.1.linux-amd64.tar.gz
+  local goRelease="1.24"
+  read -rp "Go Release number ($goRelease): " input
+  goRelease=${input:-$goRelease}
+  wget https://go.dev/dl/go${goRelease}.1.linux-amd64.tar.gz
+  sudo tar -C /usr/local -xzf go${goRelease}.1.linux-amd64.tar.gz
   rm go1.24.1.linux-amd64.tar.gz
 }
 
