@@ -84,6 +84,7 @@ declare -A special_installers=(
   ["go"]="install_go"
   ["zsh"]="install_zsh"
   ["lazygit"]="install_lazygit"
+  ["lazydocker"]="install_lazydocker"
 )
 
 # Special installation functions
@@ -96,6 +97,14 @@ install_go() {
 install_lazygit() {
   if command -v go >/dev/null 2>&1; then
     go install github.com/jesseduffield/lazygit@latest
+  else
+    install_go
+  fi
+}
+
+install_lazydocker() {
+  if command -v go >/dev/null 2>&1; then
+    go install github.com/jesseduffield/lazydocker@latest
   else
     install_go
   fi
