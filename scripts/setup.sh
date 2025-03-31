@@ -14,6 +14,34 @@
 #   - PACKAGE1, PACKAGE2, ... (optional): List of packages to install. If not provided, a default list is used.
 #
 
+# Function to determine OS
+get_os() {
+  if [ -n "$TERMUX_VERSION" ]; then
+    os="termux"
+    echo "Running on Termux"
+  else
+    os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
+  fi
+}
+
+# Set package manager command
+get_installCmd() {
+  if [[ $os == "debian" ]]; then
+    echo "Debian based system detected"
+    installCmd="sudo apt-get install -y"
+  elif [[ $os == "arch" ]]; then
+    echo "Arch based system detected"
+    installCmd="sudo pacman -S --noconfirm"
+  elif [[ $os == "termux" ]]; then
+    echo "Termux based system detected"
+    installCmd="pkg install -y"
+  else
+    echo "Unsupported OS: $os"
+    exit 1
+  fi
+
+}
+
 # Function to stow package configuration
 stow_package() {
   user=$1
@@ -138,19 +166,11 @@ setup() {
   fi
 
   # Determine OS
-  os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
+  get_os
 
-  # Set package manager command
-  if [[ $os == "debian" ]]; then
-    echo "Debian based system detected"
-    installCmd="sudo apt-get install -y"
-  elif [[ $os == "arch" ]]; then
-    echo "Arch based system detected"
-    installCmd="sudo pacman -S --noconfirm"
-  else
-    echo "Unsupported OS: $os"
-    exit 1
-  fi
+  # Get install command
+  get_installCmd
+
   # Confirmation prompt
   if [[ $noconfirm == false ]]; then
     read -rp "Install for user $user? (y/n): " choice
