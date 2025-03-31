@@ -179,7 +179,7 @@ keybinds clear-defaults=true {
         bind "Alt p" { SwitchToMode "pane"; }
     }
     shared_except "locked" "resize" "entersearch" "renametab" "renamepane" "prompt" "tmux" {
-        bind "Alt n" { SwitchToMode "resize"; }
+        bind "Alt r" { SwitchToMode "resize"; }
     }
     shared_except "normal" "locked" {
         bind "Alt +" { Resize "Increase"; }
