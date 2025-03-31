@@ -137,7 +137,7 @@ keybinds clear-defaults=true {
             SwitchToMode "normal"
         }
     }
-    shared_among "normal" "locked" {
+    shared_among "normal" {
         bind "Ctrl left" { MoveFocusOrTab "left"; }
         bind "Ctrl down" { MoveFocus "down"; }
         bind "Ctrl up" { MoveFocus "up"; }
