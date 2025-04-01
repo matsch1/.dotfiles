@@ -108,7 +108,7 @@ source ~/.dotfiles/shell/tools.sh
 # ====================
 # Projects
 # ====================
-# source ~/.dotfiles/shell/projects.sh
+source ~/.dotfiles/shell/projects.sh
 
 # ====================
 # Keybindings
