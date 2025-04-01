@@ -85,9 +85,27 @@ declare -A special_installers=(
   ["zsh"]="install_zsh"
   ["lazygit"]="install_lazygit"
   ["lazydocker"]="install_lazydocker"
+  ["nodejs"]="install_nodejs"
 )
 
 # Special installation functions
+install_nodejs() {
+  # Download and install fnm:
+  curl -o- https://fnm.vercel.app/install | bash
+
+  # Download and install Node.js:
+  fnm install 22
+
+  # Source
+  source "~/.${SHELL}rc"
+
+  # Verify the Node.js version:
+  node -v # Should print "v22.14.0".
+
+  # Verify npm version:
+  npm -v # Should print "10.9.2".
+}
+
 install_go() {
   local goRelease="1.24"
   read -rp "Go Release number ($goRelease): " input
