@@ -104,6 +104,7 @@ install_nodejs() {
 
   # Verify npm version:
   npm -v # Should print "10.9.2".
+  write_log "nodejs"
 }
 
 install_go() {
@@ -113,6 +114,7 @@ install_go() {
   wget https://go.dev/dl/go${goRelease}.1.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf go${goRelease}.1.linux-amd64.tar.gz
   rm go1.24.1.linux-amd64.tar.gz
+  write_log "go"
 }
 
 install_lazygit() {
@@ -120,7 +122,10 @@ install_lazygit() {
     go install github.com/jesseduffield/lazygit@latest
   else
     install_go
+    install_lazygit
+    exit 0
   fi
+  write_log "lazygit"
 }
 
 install_lazydocker() {
@@ -128,7 +133,10 @@ install_lazydocker() {
     go install github.com/jesseduffield/lazydocker@latest
   else
     install_go
+    install_lazydocker
+    exit 0
   fi
+  write_log "lazydocker"
 }
 
 install_zsh() {
@@ -158,6 +166,20 @@ install_neovim() {
   cd ..
   rm -rf neovim
   install_package gcc
+  if command -v npm >/dev/null 2>&1; then
+    npm install -g @devcontainers/cli
+  else
+    echo "Installation of nvim devcontainer extension requires npm"
+    if [[ $noconfirm == false ]]; then
+      read -p "Install $package? (y/n): " choice
+    else
+      choice=y
+    fi
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+      install_nodejs
+      npm install -g @devcontainers/cli
+    fi
+  fi
   write_log "neovim"
 }
 
