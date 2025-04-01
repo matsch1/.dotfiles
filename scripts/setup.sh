@@ -165,6 +165,7 @@ install_neovim() {
   sudo make install
   cd ..
   rm -rf neovim
+  install_package xclip
   install_package gcc
   if command -v npm >/dev/null 2>&1; then
     npm install -g @devcontainers/cli
