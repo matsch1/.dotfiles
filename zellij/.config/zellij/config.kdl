@@ -157,7 +157,7 @@ keybinds clear-defaults=true {
         bind "Ctrl o" { MoveTab "right"; }
     }
     shared_except "locked" "entersearch" "renametab" "renamepane" "move" "prompt" "tmux" {
-        bind "Alt h" { SwitchToMode "move"; }
+        bind "Alt m" { SwitchToMode "move"; }
     }
     shared_except "locked" "entersearch" "renametab" "renamepane" "prompt" "tmux" {
         bind "Alt g" { SwitchToMode "locked"; }
