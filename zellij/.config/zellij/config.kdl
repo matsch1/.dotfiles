@@ -4,7 +4,7 @@
 
 keybinds clear-defaults=true {
     locked {
-        bind "Alt g" { SwitchToMode "normal"; }
+        bind "Alt s" { SwitchToMode "normal"; }
     }
     pane {
         bind "left" { MoveFocus "left"; }
@@ -160,7 +160,7 @@ keybinds clear-defaults=true {
         bind "Alt m" { SwitchToMode "move"; }
     }
     shared_except "locked" "entersearch" "renametab" "renamepane" "prompt" "tmux" {
-        bind "Alt g" { SwitchToMode "locked"; }
+        bind "Alt s" { SwitchToMode "locked"; }
         bind "Alt q" { Quit; }
     }
     shared_except "locked" "entersearch" "renametab" "renamepane" "session" "prompt" "tmux" {
