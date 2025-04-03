@@ -13,4 +13,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:~/go/bin
+export PATH=$(echo $PATH | tr ":" "\n" | grep -v "Roaming\/npm" | tr "\n" ":")
+
 [ -f "~/Files/Documents/.env" ] && source ~/Files/Documents/.env

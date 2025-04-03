@@ -116,3 +116,10 @@ source ~/.dotfiles/shell/projects.sh
 # Vim keybindings for shell
 set -o vi
 
+
+# fnm
+FNM_PATH="/home/maschaefer/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/maschaefer/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
