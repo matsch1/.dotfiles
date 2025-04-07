@@ -117,6 +117,8 @@ source ~/.dotfiles/shell/projects.sh
 set -o vi
 # Keybinding for zsh-autosuggestions
 bindkey '^[[Z' autosuggest-accept
+#Keyybinding for path suggestions
+bindkey '^I' expand-or-complete
 
 
 
