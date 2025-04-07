@@ -26,7 +26,7 @@ echo "Setup machine for user $user"
 echo "Profile: $profile"
 
 declare -A profiles
-profiles["workstation"]="stow bash git zellij fzf eza bat zoxide fd-find neovim alacritty oh-my-posh docker rclone displaylink thunderbird keepassxc obsidian portfolio-performance"
+profiles["workstation"]="stow bash git zellij fzf eza bat zoxide fd-find neovim alacritty oh-my-posh nerd-fonts docker rclone displaylink thunderbird keepassxc obsidian portfolio-performance"
 profiles["server"]="stow git zellij fzf eza bat fd-find zoxide neovim wget"
 
 # Get the package list for the profile

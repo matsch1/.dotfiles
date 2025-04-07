@@ -80,6 +80,7 @@ declare -A special_installers=(
   ["neovim"]="install_neovim"
   ["zoxide"]="install_zoxide"
   ["oh-my-posh"]="install_oh_my_posh"
+  ["nerd-fonts"]="install_nerd-fonts"
   ["tmux"]="install_tmux"
   ["go"]="install_go"
   ["zsh"]="install_zsh"
@@ -190,11 +191,15 @@ install_zoxide() {
   write_log "zoxide"
 }
 
-install_oh_my_posh() {
-  curl -s https://ohmyposh.dev/install.sh | bash -s
+install_nerd-fonts() {
   git clone https://github.com/ryanoasis/nerd-fonts.git ./nerd-fonts
   ./nerd-fonts/install.sh FiraCode
   rm -rf ./nerd-fonts
+  write_log "nerd-fonts"
+}
+
+install_oh_my_posh() {
+  curl -s https://ohmyposh.dev/install.sh | bash -s
   write_log "oh-my-posh"
 }
 
