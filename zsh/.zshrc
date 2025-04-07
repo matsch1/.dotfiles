@@ -115,6 +115,9 @@ source ~/.dotfiles/shell/projects.sh
 # ====================
 # Vim keybindings for shell
 set -o vi
+# Keybinding for zsh-autosuggestions
+bindkey '^I' autosuggest-accept
+
 
 
 # fnm
