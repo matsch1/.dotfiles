@@ -10,9 +10,12 @@ export ANDROID_HOME=/home/matsch/android-sdk
 export CHROME_EXECUTABLE=/usr/bin/chromium
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/bin
+export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/go/bin
-export PATH=$(echo $PATH | tr ":" "\n" | grep -v "Roaming\/npm" | tr "\n" ":")
 
-[ -f "~/Files/Documents/.env" ] && source ~/Files/Documents/.env
+# remove npm windows path
+newPath=$(echo "$PATH" | tr ":" "\n" | grep -v "Roaming/npm" | tr "\n" ":")
+export PATH=$newPath
+
+[ -f "$HOME/Files/Documents/.env" ] && source "$HOME/Files/Documents/.env"
