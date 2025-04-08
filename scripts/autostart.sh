@@ -43,6 +43,7 @@ echo ==================================================
 # Start synchting for getting actual obsidan files
 echo start obsidian sync
 if command -v syncthing >/dev/null 2>&1; then
+  echo "syncthing command found"
 else
   echo "syncthing not installed"
   exit 1
@@ -54,6 +55,7 @@ echo ==================================================
 # start conky
 echo start conky
 if command -v conky >/dev/null 2>&1; then
+  echo "conky command found"
 else
   echo "conky not installed"
   exit 1
