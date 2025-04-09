@@ -14,7 +14,7 @@ fi
 
 # curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init $SHELL)"
+  eval "$(zoxide init "$SHELL")"
   alias cd='z'
   _ZO_DOCTOR=0
 fi
