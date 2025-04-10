@@ -16,6 +16,6 @@ export PATH=$PATH:~/go/bin
 
 # remove npm windows path
 newPath=$(echo "$PATH" | tr ":" "\n" | grep -v "Roaming/npm" | tr "\n" ":")
-export PATH=$newPath
+export PATH=$newPath:$(which npm)
 
 [ -f "$HOME/Files/Documents/.env" ] && source "$HOME/Files/Documents/.env"
