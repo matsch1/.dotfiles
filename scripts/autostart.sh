@@ -63,4 +63,8 @@ fi
 pkill conky
 conky >/dev/null 2>&1 &
 
+echo ==================================================
+echo NAS backup
+./nas-backup.sh
+
 exit 0
