@@ -7,11 +7,9 @@ REMOTE="fritznas:/fritz.nas/NAS/Matthias/backups"
 backup_path() {
   path2bak=$1
   pathremote="$2/$path2bak"
-  echo " "
   echo "Backing up: $path2bak"
   rclone copy "$path2bak" "$pathremote" --progress --transfers=16 --checkers=16 --fast-list
   echo "Backup done sucessfully: $pathremote"
-  echo " "
 }
 
 # =========================== backup ====================================

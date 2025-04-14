@@ -12,9 +12,10 @@ mount_googledrive_directory() {
 }
 # =========================== autostart ====================================
 echo ==================================================
+echo "Mount googledrive directories"
 # check for rclone
-if command -v bat >/dev/null 2>&1; then
-  if rclone config file | xargs cat | grep -q "\[googledrive\]"; then
+if command -v rclone >/dev/null 2>&1; then
+  if cat $(rclone config file | sed -n '2p') | grep -q "\[googledrive\]"; then
     echo "Google Drive config exists."
   else
     echo "rclone must be configured for googledrive"
@@ -41,7 +42,7 @@ done
 
 echo ==================================================
 # Start synchting for getting actual obsidan files
-echo start obsidian sync
+echo "Start obsidian sync"
 if command -v syncthing >/dev/null 2>&1; then
   echo "syncthing command found"
 else
@@ -52,8 +53,8 @@ syncthing -no-browser >/dev/null 2>&1 &
 disown
 
 echo ==================================================
-# start conky
-echo start conky
+# estart conky
+echo "Start conky"
 if command -v conky >/dev/null 2>&1; then
   echo "conky command found"
 else
@@ -64,7 +65,7 @@ pkill conky
 conky >/dev/null 2>&1 &
 
 echo ==================================================
-echo NAS backup
+echo "NAS backup"
 ./nas-backup.sh
 
 exit 0
