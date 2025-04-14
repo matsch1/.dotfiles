@@ -19,9 +19,7 @@ echo "========= Start backup ========= "
 do_backup=false # is set to true is preconditions are fullfilled
 
 declare -a paths=(
-  "/home/$USER/Desktop/"
-  "/home/$USER/Downloads/"
-  "/home/$USER/Pictures/"
+  "/home/$USER/Files/"
 )
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 remotepath="$REMOTE/bak_$timestamp/"
