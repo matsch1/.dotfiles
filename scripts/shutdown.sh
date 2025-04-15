@@ -4,4 +4,4 @@
 ~/.dotfiles/scripts/sync-obsidian.sh
 
 # obsidian backup
-~/.dotfiles/scripts/git-autopush.sh ~/Obsidian/
+~/.dotfiles/scripts/git-autopush.sh ~/obsidian/
