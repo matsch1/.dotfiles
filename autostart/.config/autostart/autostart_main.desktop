@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Startup Script
-Exec=konsole --hold -e /home/$USER/.dotfiles/scripts/autostart.sh
+Exec=konsole -e /home/$USER/.dotfiles/scripts/autostart_main.sh
 Terminal=false
 

@@ -12,6 +12,8 @@ mount_googledrive_directory() {
 }
 # =========================== autostart ====================================
 echo ==================================================
+echo =============== Startup =========================
+echo ==================================================
 echo "Mount googledrive directories"
 # check for rclone
 if command -v rclone >/dev/null 2>&1; then
@@ -27,7 +29,6 @@ else
 fi
 
 # mount googledrive
-echo mount googledrive
 declare -a paths=(
   "_Ablage"
   "Files/Documents/Finanzen/Finanzplanung"
@@ -53,19 +54,7 @@ syncthing -no-browser >/dev/null 2>&1 &
 disown
 
 echo ==================================================
-# estart conky
-echo "Start conky"
-if command -v conky >/dev/null 2>&1; then
-  echo "conky command found"
-else
-  echo "conky not installed"
-  exit 1
-fi
-pkill conky
-conky >/dev/null 2>&1 &
-
-echo ==================================================
 echo "NAS backup"
-./nas-backup.sh
+/home/"$USER"/.dotfiles/scripts/nas-backup.sh
 
 exit 0

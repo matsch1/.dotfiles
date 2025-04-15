@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Startup conky
+Exec=/home/matsch/.dotfiles/scripts/autostart_conky.sh
+Terminal=false
+
