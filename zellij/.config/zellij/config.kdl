@@ -6,6 +6,9 @@ keybinds clear-defaults=true {
     locked {
         bind "Alt s" { SwitchToMode "normal"; }
     }
+    normal {
+        bind "Ctrl s" { SwitchToMode "locked"; }
+    }
     pane {
         bind "left" { MoveFocus "left"; }
         bind "down" { MoveFocus "down"; }
