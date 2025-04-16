@@ -47,8 +47,8 @@ stow_package() {
   user=$1
   package=$2
   if command -v stow >/dev/null 2>&1; then
-    if [[ -d "../$package" ]]; then
-      stow -d .. -t "/home/$user" "$package" && echo "$package stowed successfully"
+    if [[ -d "/home/$user/.dotfiles/$package" ]]; then
+      stow -d "/home/$user/.dotfiles" -t "/home/$user" "$package" && echo "$package stowed successfully"
     else
       echo "No dotfiles for $package!"
     fi
@@ -98,7 +98,7 @@ install_nodejs() {
   fnm install 22
 
   # Source
-  source "~/.${SHELL}rc"
+  source "/home/$user/.${SHELL}rc"
 
   # Verify the Node.js version:
   node -v # Should print "v22.14.0".
@@ -141,13 +141,15 @@ install_lazydocker() {
 }
 
 install_zsh() {
-  install_package "zsh"
-  # sudo chsh -s "$(which zsh)"
-  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || exit 1
-  git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+  if command -v zsh >/dev/null 2>&1; then
+    sudo chsh -s "$(which zsh)"
+  else
+    sudo -u "$user" sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || exit 1
+  fi
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/"$user"/.oh-my-zsh/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/"$user"/.oh-my-zsh/plugins/zsh-syntax-highlighting
 
-  rm ~/.zshrc
+  rm /home/"$user"/.zshrc
   write_log "zsh"
 }
 
@@ -164,7 +166,7 @@ install_neovim() {
   git checkout stable
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   sudo make install
-  cd ..
+  cd "/home/$user/.dotfiles" || exit 1
   rm -rf neovim
   install_package xclip
   install_package gcc
