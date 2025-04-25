@@ -285,9 +285,10 @@ keybinds clear-defaults=true {
 // changing these requires a restart to take effect
 plugins {
     about location="zellij:about"
-    autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" { is_enabled true
+    autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" { 
+        is_enabled true
         print_to_log true
-        reaction_seconds "1"
+        reaction_seconds "2"
         triggers "nvim|vim|git|fzf|zoxide|atuin"
     }
     compact-bar location="zellij:compact-bar"
