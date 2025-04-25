@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAX_NUMBER_BACKUPS=7
+MAX_NUMBER_BACKUPS=14
 REMOTE="fritznas:/fritz.nas/NAS/Matthias/backups"
 
 # =========================== functions ====================================
