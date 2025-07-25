@@ -1,4 +1,5 @@
 [window]
+startup_mode = "Maximized"
 opacity = 0.9
 decorations = "Full"
 decorations_theme_variant = "Dark"
