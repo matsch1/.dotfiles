@@ -8,6 +8,15 @@ keybinds clear-defaults=true {
     }
     normal {
         bind "Ctrl s" { SwitchToMode "locked"; }
+        bind "Ctrl g" {
+          Run "lazygit" {
+            floating true
+            x "10%"
+            y "10%"
+            width "80%"
+            height "80%"
+        }
+      }
     }
     pane {
         bind "left" { MoveFocus "left"; }
