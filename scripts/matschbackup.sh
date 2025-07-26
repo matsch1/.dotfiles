@@ -15,8 +15,6 @@ if ! command -v go >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "🔨 Building Go backup program..."
+# Building and running backup
 go build -o backup "$BACKUPREPO/main.go"
-echo "Running backup"
 ./backup -v
-echo "✅ Build complete: ./backup"
