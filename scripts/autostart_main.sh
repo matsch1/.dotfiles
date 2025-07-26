@@ -55,6 +55,6 @@ disown
 
 echo ==================================================
 echo "NAS backup"
-/home/"$USER"/.dotfiles/scripts/nas-backup.sh
+/home/"$USER"/.dotfiles/scripts/matschbackup.sh
 
 exit 0
