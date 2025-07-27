@@ -17,4 +17,4 @@ fi
 
 # Building and running backup
 go build -o backup "$BACKUPREPO/main.go"
-./backup -v
+./backup -v -c
