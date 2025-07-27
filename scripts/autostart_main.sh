@@ -14,6 +14,18 @@ mount_googledrive_directory() {
 echo ==================================================
 echo =============== Startup =========================
 echo ==================================================
+# Start synchting for getting actual obsidan files
+echo "Start obsidian sync"
+if command -v syncthing >/dev/null 2>&1; then
+  echo "syncthing command found"
+else
+  echo "syncthing not installed"
+  exit 1
+fi
+syncthing -no-browser >/dev/null 2>&1 &
+disown
+
+echo ==================================================
 echo "Mount googledrive directories"
 # check for rclone
 if command -v rclone >/dev/null 2>&1; then
@@ -40,18 +52,6 @@ declare -a paths=(
 for Path2Mount in "${paths[@]}"; do
   mount_googledrive_directory "$Path2Mount"
 done
-
-echo ==================================================
-# Start synchting for getting actual obsidan files
-echo "Start obsidian sync"
-if command -v syncthing >/dev/null 2>&1; then
-  echo "syncthing command found"
-else
-  echo "syncthing not installed"
-  exit 1
-fi
-syncthing -no-browser >/dev/null 2>&1 &
-disown
 
 echo ==================================================
 echo "NAS backup"

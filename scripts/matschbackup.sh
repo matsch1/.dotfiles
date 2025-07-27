@@ -10,6 +10,8 @@ fi
 cd "$BACKUPREPO"
 
 # Check if go is installed
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:~/go/bin
 if ! command -v go >/dev/null 2>&1; then
   echo "❌ Error: Go is not installed or not in your PATH."
   exit 1
