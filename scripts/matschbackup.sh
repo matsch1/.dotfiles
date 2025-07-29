@@ -19,4 +19,4 @@ fi
 
 # Building and running backup
 go build -o backup "$BACKUPREPO/main.go"
-./backup --remote fritznas:/fritz.nas/NAS/Matthias/backups --path /home/"$USER"/src --path /home/"$USER"/.config --path /home/"$USER"/Files --path /home/"$USER"/_Ablage --path /home/"$USER"/obsidian --zip --debug
+./backup --remote fritznas:/fritz.nas/NAS/Matthias/backups --path /home/"$USER"/src --path /home/"$USER"/.config --path /home/"$USER"/Files --path /home/"$USER"/matschdrive --path /home/"$USER"/obsidian --path /home/"$USER"/.ssh --zip --debug
