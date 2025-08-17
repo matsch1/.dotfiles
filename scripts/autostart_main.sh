@@ -18,10 +18,20 @@ disown
 
 echo ==================================================
 echo "Mount googledrive directories"
+
 # check for rclone
 if command -v rclone >/dev/null 2>&1; then
-  if cat $(rclone config file | sed -n '2p') | grep -q "\[googledrive\]"; then
+  CONFIG_FILE=$(rclone config file | sed -n '2p')
+  if grep -q "^\[googledrive\]" "$CONFIG_FILE"; then
     echo "Google Drive config exists."
+
+    # test if authentication works
+    if rclone about googledrive: >/dev/null 2>&1; then
+      echo "✅ Google Drive authentication valid."
+    else
+      echo "❌ Google Drive authentication failed. Please reconfigure with 'rclone config'."
+      exit 1
+    fi
   else
     echo "rclone must be configured for googledrive"
     exit 1
