@@ -13,7 +13,7 @@ else
   echo "syncthing not installed"
   exit 1
 fi
-syncthing -no-browser >/dev/null 2>&1 &
+syncthing --no-browser >/dev/null 2>&1 &
 disown
 
 echo ==================================================
