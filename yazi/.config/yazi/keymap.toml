@@ -160,7 +160,12 @@ keymap = [
     { on = ["g", "i"], run = "plugin lazygit", desc = "Run lazygit" },
 
     # Terminal
-    { on = ["g", "t"], run = 'shell --block "${SHELL:-cmd}"', desc = "Open shell here" },
+    # Unix
+    { on = ["g", "t"], run = 'shell --block ${SHELL}', desc = "Open shell here", for = "unix" },
+
+    # Windows (cmd)
+    { on = ["g", "t"], run = 'shell --block cmd', desc = "Open shell here", for = "windows" },
+
 ]
 
 [tasks]
