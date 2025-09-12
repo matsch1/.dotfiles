@@ -154,6 +154,10 @@ keymap = [
     # Help
     { on = "~",   run = "help", desc = "Open help" },
     { on = "<F1>", run = "help", desc = "Open help" },
+
+    # Lazygit
+    { on = ["g", "i"], run = "plugin lazygit", desc = "Run lazygit" },
+
 ]
 
 [tasks]
@@ -362,7 +366,3 @@ keymap = [
     # Filtering
     { on = "f", run = "filter", desc = "Filter help items" },
 ]
-[[mgr.prepend_keymap]]
-on   = [ "g", "i" ]
-run  = "plugin lazygit"
-desc = "run lazygit"
