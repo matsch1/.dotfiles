@@ -18,7 +18,12 @@ title_format    = "Yazi: {cwd}"
 
 [opener]
 edit = [
+    # Unix: Neovim
     { run = 'nvim "$@"', desc = "Neovim", block = true, for = "unix" },
-    { run = 'code %*', orphan = true, desc = "code", for = "windows" },
-    { run = 'code -w %*', block = true, desc = "code (block)", for = "windows" },
+
+    # Windows: Neovim
+    { run = 'nvim %*', desc = "Neovim", block = true, for = "windows" },
+
+    # Windows: Notepad++
+    { run = 'notepad++ %*', desc = "Notepad++", block = true, for = "windows" },
 ]
