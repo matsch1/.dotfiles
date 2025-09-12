@@ -129,6 +129,7 @@ keymap = [
     { on = [ "g", "d" ],       run = "cd ~/Downloads", desc = "Go ~/Downloads" },
     { on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
     { on = [ "g", "f" ],       run = "follow",           desc = "Follow hovered symlink" },
+ 
     # Tabs
     { on = "t", run = "tab_create --current", desc = "Create a new tab with CWD" },
 
@@ -158,6 +159,8 @@ keymap = [
     # Lazygit
     { on = ["g", "i"], run = "plugin lazygit", desc = "Run lazygit" },
 
+    # Terminal
+    { on = ["g", "t"], run = 'shell --block "${SHELL:-cmd}"', desc = "Open shell here" },
 ]
 
 [tasks]
