@@ -5,3 +5,7 @@
 	autocrlf = false
 [credential]
 	helper = store
+[pull]
+	rebase = false
+[safe]
+	directory = /storage/emulated/0/Documents/web

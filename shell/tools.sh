@@ -20,4 +20,6 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 
 # zellij
-[[ -z $ZELLIJ ]] && zellij
+if command -v zellij >/dev/null 2>&1; then
+  [[ -z $ZELLIJ ]] && zellij
+fi

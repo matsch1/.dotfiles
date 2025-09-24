@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# obsidian sync
-~/.dotfiles/scripts/sync-obsidian.sh
-
-# obsidian backup
-~/.dotfiles/scripts/git-autopush.sh ~/Obsidian/
+# portfolio performance
+## share database with googledrive for phone access
+rclone copy /home/matsch/matschdrive/Documents/Finanzen/PortfolioPerformance/Vermoegen.portfolio googledrive:_Ablage/ -v

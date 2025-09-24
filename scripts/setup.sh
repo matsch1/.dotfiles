@@ -14,67 +14,6 @@
 #   - PACKAGE1, PACKAGE2, ... (optional): List of packages to install. If not provided, a default list is used.
 #
 
-# Function to determine OS
-get_os() {
-  if [ -n "$TERMUX_VERSION" ]; then
-    os="termux"
-    echo "Running on Termux"
-  else
-    os=$(grep '^ID_LIKE=' /etc/os-release | cut -d= -f2 | tr -d '"')
-  fi
-}
-
-# Set package manager command
-get_installCmd() {
-  if [[ $os == "debian" ]]; then
-    echo "Debian based system detected"
-    installCmd="sudo apt-get install -y"
-  elif [[ $os == "arch" ]]; then
-    echo "Arch based system detected"
-    installCmd="sudo pacman -S --noconfirm"
-  elif [[ $os == "termux" ]]; then
-    echo "Termux based system detected"
-    installCmd="pkg install -y"
-  else
-    echo "Unsupported OS: $os"
-    exit 1
-  fi
-
-}
-
-# Function to stow package configuration
-stow_package() {
-  user=$1
-  package=$2
-  if command -v stow >/dev/null 2>&1; then
-    if [[ -d "../$package" ]]; then
-      stow -d .. -t "/home/$user" "$package" && echo "$package stowed successfully"
-    else
-      echo "No dotfiles for $package!"
-    fi
-  else
-    echo "Requires stow. Please install!"
-  fi
-}
-
-# Function to install a package normally
-install_package() {
-  package=$1
-  echo "Installing $package..."
-  $installCmd "$package" && write_log "$package"
-}
-
-# Function to log installation results
-write_log() {
-  package=$1
-  log_file="$HOME/setup-log.txt"
-  if command -v "$package" &>/dev/null; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $package Installed" >>"$log_file"
-  else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $package FAILED TO INSTALL!!!" >>"$log_file"
-  fi
-}
-
 # Define a mapping of packages to special installation functions
 declare -A special_installers=(
   ["neovim"]="install_neovim"
@@ -88,7 +27,6 @@ declare -A special_installers=(
   ["lazydocker"]="install_lazydocker"
   ["nodejs"]="install_nodejs"
 )
-
 # Special installation functions
 install_nodejs() {
   # Download and install fnm:
@@ -98,7 +36,7 @@ install_nodejs() {
   fnm install 22
 
   # Source
-  source "~/.${SHELL}rc"
+  source "/home/$user/.${SHELL}rc"
 
   # Verify the Node.js version:
   node -v # Should print "v22.14.0".
@@ -141,13 +79,15 @@ install_lazydocker() {
 }
 
 install_zsh() {
-  install_package "zsh"
-  # sudo chsh -s "$(which zsh)"
-  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || exit 1
-  git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+  if command -v zsh >/dev/null 2>&1; then
+    sudo chsh -s "$(which zsh)"
+  else
+    sudo -u "$user" sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || exit 1
+  fi
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git /home/"$user"/.oh-my-zsh/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/"$user"/.oh-my-zsh/plugins/zsh-syntax-highlighting
 
-  rm ~/.zshrc
+  rm /home/"$user"/.zshrc
   write_log "zsh"
 }
 
@@ -164,7 +104,7 @@ install_neovim() {
   git checkout stable
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   sudo make install
-  cd ..
+  cd "/home/$user/.dotfiles" || exit 1
   rm -rf neovim
   install_package xclip
   install_package gcc
@@ -223,12 +163,6 @@ setup() {
     packages=("stow" "bash" "git" "zellij" "tmux" "fzf" "eza" "bat" "zoxide" "neovim" "conky" "alacritty" "oh-my-posh")
   fi
 
-  # Determine OS
-  get_os
-
-  # Get install command
-  get_installCmd
-
   # Confirmation prompt
   if [[ $noconfirm == false ]]; then
     read -rp "Install for user $user? (y/n): " choice
@@ -238,6 +172,11 @@ setup() {
   [[ "$choice" != "y" && "$choice" != "Y" ]] && echo "Exit by user" && exit 1
 
   # Install packages from packages list
+  cd "/home/$user/.dotfiles/scripts/utils"
+
+  os="$(./get_os.sh)"
+  installCmd="$(./get_install_command.sh $os)"
+
   for package in "${packages[@]}"; do
     if [[ $noconfirm == false ]]; then
       read -p "Install $package? (y/n): " choice
@@ -249,11 +188,12 @@ setup() {
       if [[ -n "${special_installers[$package]}" ]]; then
         ${special_installers[$package]}
       else
-        install_package "$package"
+        echo "Executing: $installCmd $package"
+        eval "$installCmd $package"
       fi
 
       # Stow dotfiles if available
-      stow_package "$user" "$package"
+      ./stow_package.sh "$user" "$package"
     else
       echo "Skipping $package..."
     fi

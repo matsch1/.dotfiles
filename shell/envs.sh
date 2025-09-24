@@ -13,9 +13,10 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/go/bin
+export PATH=$PATH:~/.pyenv/versions/3.12.3/bin
 
 # remove npm windows path
 newPath=$(echo "$PATH" | tr ":" "\n" | grep -v "Roaming/npm" | tr "\n" ":")
-export PATH=$newPath
+export PATH=$newPath:$(which npm)
 
 [ -f "$HOME/Files/Documents/.env" ] && source "$HOME/Files/Documents/.env"
