@@ -28,7 +28,6 @@
 
 - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
-- [Features](#features)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
@@ -43,12 +42,6 @@
 
 This are the dotfiles I am currently using. 
 They are managed using [GNU Stow](https://www.gnu.org/software/stow/manual/stow.html).
-
----
-
-## Features
-
-<code>❯ REPLACE-ME</code>
 
 ---
 
