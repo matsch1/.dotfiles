@@ -14,6 +14,7 @@ export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/go/bin
 export PATH=$PATH:~/.pyenv/versions/3.12.3/bin
+export PATH=$PATH:~/.local/bin
 
 # remove npm windows path
 newPath=$(echo "$PATH" | tr ":" "\n" | grep -v "Roaming/npm" | tr "\n" ":")
