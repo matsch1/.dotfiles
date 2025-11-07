@@ -1,7 +1,8 @@
 font-family = "Geist Mono"
 window-decoration = false
-background-opacity = 0.80
+background-opacity = 0.90
 background=#1a1c1c
 command=zellij
+maximize=true
 confirm-close-surface=false
 
