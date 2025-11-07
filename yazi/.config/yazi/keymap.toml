@@ -161,7 +161,7 @@ keymap = [
 
     # Terminal
     # Unix
-    { on = ["g", "t"], run = 'shell --block ${SHELL}', desc = "Open shell here", for = "unix" },
+    { on = ["g", "t"], run = 'shell --block ${SHELL}', desc = "Open shell/terminal here", for = "unix" },
 
     # Windows (cmd)
     { on = ["g", "t"], run = 'shell --block cmd', desc = "Open shell here", for = "windows" },
