@@ -59,7 +59,7 @@ keymap = [
     { on = "<Tab>", run = "spot", desc = "Spot hovered file" },
 
     # Operation
-    { on = "o",           run = "open",                 desc = "Open selected files" },
+    { on = "o",           run = "open --interactive",                 desc = "Open selected files" },
     { on = "O",           run = "open --interactive",   desc = "Open selected files interactively" },
     { on = "<Enter>",     run = "open",                 desc = "Open selected files" },
     { on = "<S-Enter>", run = "open --interactive",   desc = "Open selected files interactively" },
@@ -157,7 +157,7 @@ keymap = [
     { on = "<F1>", run = "help", desc = "Open help" },
 
     # Lazygit
-    { on = ["g", "i"], run = "plugin lazygit", desc = "Run lazygit" },
+    { on = ["g", "l"], run = "plugin lazygit", desc = "Run lazygit" },
 
     # Terminal
     # Unix
