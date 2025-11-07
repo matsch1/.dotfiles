@@ -1,0 +1,7 @@
+font-family = "Geist Mono"
+window-decoration = false
+background-opacity = 0.80
+background=#1a1c1c
+command=zellij
+confirm-close-surface=false
+
