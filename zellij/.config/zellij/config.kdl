@@ -298,7 +298,7 @@ plugins {
         is_enabled true
         print_to_log true
         reaction_seconds "2"
-        triggers "nvim|yazi|vim|git|fzf|zoxide|atuin"
+        triggers "nvim|yazi|vim|git|fzf|zoxide|atuin|ssh"
     }
     compact-bar location="zellij:compact-bar"
     configuration location="zellij:configuration"
