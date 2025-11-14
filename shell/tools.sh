@@ -10,6 +10,8 @@ fi
 # sudo pacman -S bat
 if command -v bat >/dev/null 2>&1; then
   alias cat='bat'
+elif command -v batcat >/dev/null 2>&1; then
+  alias cat='batcat'
 fi
 
 # curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
