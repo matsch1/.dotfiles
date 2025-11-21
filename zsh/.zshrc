@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export SHELL="zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -9,7 +16,9 @@ export SHELL="zsh"
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" "awesomepanda")
-source ~/.oh-my-zsh/themes/jreese.zsh-theme
+# source ~/.oh-my-zsh/themes/jreese.zsh-theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
 
 # now load zsh-syntax-highlighting plugin
 
@@ -128,3 +137,6 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="/home/maschaefer/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
