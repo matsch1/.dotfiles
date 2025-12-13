@@ -13,5 +13,6 @@ wezterm.on("gui-startup", function(cmd)
 end)
 
 config.default_prog = { "zellij" }
+config.window_close_confirmation = "NeverPrompt"
 
 return config
