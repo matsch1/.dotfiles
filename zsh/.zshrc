@@ -66,6 +66,8 @@ plugins=(
         zsh-autosuggestions
         git
         fzf
+        kubectl
+        kube-ps1
 )
 
 source ~/.oh-my-zsh/oh-my-zsh.sh
