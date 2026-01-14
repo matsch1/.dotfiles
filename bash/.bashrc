@@ -52,3 +52,6 @@ set -o vi
 if command -v oh-my-posh >/dev/null 2>&1; then
   eval "$(oh-my-posh --init --shell bash --config ~/.cache/oh-my-posh/themes/slimfat.omp.json)"
 fi
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
