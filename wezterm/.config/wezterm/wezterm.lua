@@ -1,3 +1,5 @@
+--- for Windows create Symlink: mklink "C:\Users\<username>\.wezterm.lua" "C:\Users\<username>\.dotfiles\wezterm\.config\wezterm\wezterm.lua"
+
 local wezterm = require("wezterm")
 local mux = wezterm.mux
 local config = {}
@@ -22,7 +24,8 @@ wezterm.on("gui-startup", function(cmd)
 	local tab, pane, window = mux.spawn_window(cmd or {})
 	window:gui_window():maximize()
 end)
-config.default_prog = { "zellij" }
+--- startup in WSL
+config.default_prog = { "wsl", "-d", "Ubuntu-24.04", "--cd", "~" }
 
 --- Shutdown Behavior
 config.window_close_confirmation = "NeverPrompt"
