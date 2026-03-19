@@ -31,3 +31,14 @@ vim.opt.termguicolors = true
 vim.g.mapleader = " "
 vim.g.background = "light"
 vim.g.lazyvim_picker = "telescope"
+
+-- Open file explorer at startup if no files are provided (same as <leader>E)
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 then
+      vim.defer_fn(function()
+        require("snacks").explorer()
+      end, 100) -- delay by 100ms to ensure plugins are loaded
+    end
+  end,
+})
