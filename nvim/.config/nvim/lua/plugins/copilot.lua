@@ -11,6 +11,10 @@ return {
       { "<leader>as", "<cmd>Copilot status<CR>", desc = "Copilot status" },
     },
     config = function()
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>a", group = "Agent" },
+      })
       -- disable by default
       vim.g.copilot_enabled = 0
 
@@ -27,5 +31,5 @@ return {
         end
       end, {})
     end,
-  }
+  },
 }
