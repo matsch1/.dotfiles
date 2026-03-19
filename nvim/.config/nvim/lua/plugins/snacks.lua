@@ -4,6 +4,7 @@ return {
     "folke/snacks.nvim",
     -- Override the default options provided by LazyVim
     opts = {
+      dashboard = { enabled = false },
       picker = {
         hidden = true, -- For all pickers
         sources = {
