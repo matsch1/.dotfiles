@@ -3,6 +3,13 @@ return {
     "github/copilot.vim",
     cmd = { "Copilot", "CopilotEnable", "CopilotDisable" },
     event = "InsertEnter", -- load only when editing
+    keys = {
+      { "<leader>at", "<cmd>CopilotToggle<CR>", desc = "Toggle Copilot" },
+      { "<leader>ae", "<cmd>Copilot enable<CR>", desc = "Enable Copilot" },
+      { "<leader>ad", "<cmd>Copilot disable<CR>", desc = "Disable Copilot" },
+      { "<leader>aa", "<cmd>Copilot auth<CR>", desc = "Authenticate Copilot" },
+      { "<leader>as", "<cmd>Copilot status<CR>", desc = "Copilot status" },
+    },
     config = function()
       -- disable by default
       vim.g.copilot_enabled = 0
@@ -19,9 +26,6 @@ return {
           print("✅ Copilot enabled")
         end
       end, {})
-
-      -- Optional: keymap to toggle easily
-      vim.keymap.set("n", "<leader>cp", ":CopilotToggle<CR>", { silent = true, desc = "Toggle Copilot" })
     end,
-  },
+  }
 }
