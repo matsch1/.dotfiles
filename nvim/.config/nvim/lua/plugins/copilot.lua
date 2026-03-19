@@ -6,7 +6,6 @@ return {
     config = function()
       -- disable by default
       vim.g.copilot_enabled = 0
-      vim.g.copilot_no_tab_map = true -- don’t steal <Tab>
 
       -- Custom toggle command
       vim.api.nvim_create_user_command("CopilotToggle", function()
