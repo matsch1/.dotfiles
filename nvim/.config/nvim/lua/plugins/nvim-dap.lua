@@ -1,17 +1,25 @@
 return {
   "mfussenegger/nvim-dap",
   dependencies = {
+    "mfussenegger/nvim-dap-python",
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
   },
   config = function()
     local dap = require("dap")
     local dapui = require("dapui")
+    local dap_python = require("dap-python")
+
+    dap_python.setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+
     dapui.setup()
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()
     end
     dap.listeners.before.launch.dapui_config = function()
+      dapui.open()
+    end
+    dap.listeners.after.event_initialized.dapui_config = function()
       dapui.open()
     end
     dap.listeners.before.event_terminated.dapui_config = function()
@@ -36,11 +44,11 @@ return {
       dap.toggle_breakpoint()
     end)
     vim.keymap.set("n", "<Leader>dbs", function()
-      dap.set_breakpoint()
+      dap.set_breakpoint(nil, nil, vim.fn.input("Breakpoint condition: "))
     end)
-    -- vim.keymap.set("n", "<Leader>lp", function()
-    --   dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-    -- end)
+    vim.keymap.set("n", "<Leader>dlp", function()
+      dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+    end)
     vim.keymap.set("n", "<Leader>dr", function()
       dap.repl.open()
     end)
@@ -108,11 +116,58 @@ return {
       },
     }
 
-    -- Bash DAB
+    dap.configurations.python = {
+      {
+        type = "python",
+        request = "launch",
+        name = "Debug file",
+        program = "${file}",
+        pythonPath = dap_python.resolve,
+      },
+      {
+        type = "python",
+        request = "launch",
+        name = "Debug current file (pytest)",
+        module = "pytest",
+        args = { "${file}" },
+        pythonPath = dap_python.resolve,
+      },
+      {
+        type = "python",
+        request = "launch",
+        name = "Debug current file (no config)",
+        module = "debugpy",
+        args = { "${file}" },
+        pythonPath = dap_python.resolve,
+      },
+    }
+
+    dap.adapters.dart = {
+      type = "executable",
+      command = "dart",
+      args = { "debug_adapter" },
+    }
+    dap.configurations.dart = {
+      {
+        type = "dart",
+        request = "launch",
+        name = "Dart: Launch current file",
+        program = "${file}",
+        cwd = "${workspaceFolder}",
+      },
+      {
+        type = "dart",
+        request = "launch",
+        name = "Flutter: Launch app",
+        program = "${workspaceFolder}",
+        cwd = "${workspaceFolder}",
+      },
+    }
+
+    local bash_debug_path = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter"
     dap.adapters.bashdb = {
       type = "executable",
-      command = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/bash-debug-adapter",
-      name = "bashdb",
+      command = bash_debug_path .. "/bash-debug-adapter",
     }
     dap.configurations.sh = {
       {
@@ -120,8 +175,8 @@ return {
         request = "launch",
         name = "Launch file",
         showDebugOutput = true,
-        pathBashdb = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb",
-        pathBashdbLib = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir",
+        pathBashdb = bash_debug_path .. "/bashdb_dir/bashdb",
+        pathBashdbLib = bash_debug_path .. "/bashdb_dir",
         trace = true,
         file = "${file}",
         program = "${file}",
