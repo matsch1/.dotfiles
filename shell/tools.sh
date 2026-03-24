@@ -4,7 +4,7 @@
 
 # sudo pacman -S eza
 if command -v exa >/dev/null 2>&1; then
-  alias ls='eza'
+  alias ls='eza -g --icons'
 fi
 
 # sudo pacman -S bat
