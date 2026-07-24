@@ -49,6 +49,7 @@ echo "$remotepath mounted succesfully"
 
 echo ==================================================
 echo "NAS backup"
-/home/"$USER"/.dotfiles/scripts/matschbackup.sh
+# /home/"$USER"/.dotfiles/scripts/matschbackup.sh
+echo "currently deactivated"
 
 exit 0
