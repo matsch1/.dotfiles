@@ -4,6 +4,7 @@
 
 export XDG_CONFIG_HOME=~/.config
 export EDITOR=nvim
+export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=0
 export ANDROID_HOME=/home/matsch/android-sdk
