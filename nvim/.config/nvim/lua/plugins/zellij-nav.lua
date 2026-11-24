@@ -1,5 +1,8 @@
 return {
   "swaits/zellij-nav.nvim",
+  cond = function()
+    return vim.env.ZELLIJ ~= nil and vim.env.HERDR_PANE_ID == nil
+  end,
   lazy = true,
   event = "VeryLazy",
   keys = {

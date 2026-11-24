@@ -48,7 +48,7 @@ I no longer use all of that tools, so it can be that some of the doftfiles are n
 **Terminal & Shell**
 - WezTerm
 - Zsh
-- Zellij (terminal multiplexer)
+- Herdr (terminal multiplexer)
 
 **Tools**
 - Neovim (editor)
@@ -71,6 +71,7 @@ I no longer use all of that tools, so it can be that some of the doftfiles are n
     ├── fzf
     ├── ghostty
     ├── git
+    ├── herdr
     ├── nvim
     ├── scripts
     │   ├── autostart_conky.sh

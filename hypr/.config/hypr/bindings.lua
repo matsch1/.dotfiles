@@ -15,6 +15,9 @@
 -- Add a new binding.
 -- o.bind("SUPER + SHIFT + R", "SSH", "alacritty -e ssh your-server")
 
+-- Open or attach to Herdr with the main terminal shortcut.
+o.rebind("SUPER + RETURN", "Herdr", { omarchy = "terminal-herdr" })
+
 -- Close the last notification instead of invoking its action or focusing its app.
 o.rebind("SUPER + comma", "Dismiss last notification", { ipc = "notifications.dismissOne" })
 
@@ -50,7 +53,7 @@ o.bind("SUPER + F", "Maximize window", hl.dsp.window.fullscreen({ mode = "maximi
 -- Switch to the next window instead of the next workspace.
 hl.unbind("SUPER + TAB")
 o.bind("SUPER + TAB", "Focus on next window", hl.dsp.window.cycle_next())
-o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
+o.bind("SUPER + X", "Close window", hl.dsp.window.close())
 o.bind("SUPER + A", "Codex", "omarchy launch tui codex")
 o.bind("SUPER + B", "Browser", "omarchy launch browser")
 
