@@ -9,6 +9,7 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.textwidth = 0
 vim.opt.swapfile = false
+vim.opt.autoread = true -- Reload externally changed files when there are no unsaved edits
 vim.opt.number = true -- Print the line number in front of each line
 vim.opt.relativenumber = false -- Show the line number relative to the line with the cursor in front of each line.
 vim.opt.syntax = "on" -- When this option is set, the syntax with this name is loaded.
