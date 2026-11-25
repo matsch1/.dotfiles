@@ -128,6 +128,14 @@ Build .dotfiles from the source and intsall dependencies:
     cd .dotfiles
     ```
 
+3. **Install the Herdr Vim Navigator plugin** (if using Herdr):
+
+    The Herdr config uses this plugin for `Ctrl+h/j/k/l` navigation between Herdr panes and Neovim splits.
+
+    ```sh
+    herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator \
+      --ref 7798a2f027465698cb1a51695327e138319f61f3
+    ```
 
 ### Usage
 
