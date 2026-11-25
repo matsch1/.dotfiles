@@ -33,6 +33,7 @@ k9s() {
 
   docker run --rm -it \
     -v "$kubeconfig:/root/.kube/config:ro" \
+    --mount type=volume,source=k9s-nvim-data,target=/root/.local/share/k9s \
     -e KUBECONFIG=/root/.kube/config \
     "$image" "$@"
 }
