@@ -1,17 +1,5 @@
 
-export SHELL="zsh"
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="awesomepanda"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" "awesomepanda")
-source ~/.oh-my-zsh/themes/jreese.zsh-theme
-# ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME=""
 
 
 # now load zsh-syntax-highlighting plugin
@@ -72,6 +60,27 @@ plugins=(
 
 source ~/.oh-my-zsh/oh-my-zsh.sh
 
+# GitHub Dark prompt with ANSI fallbacks for terminals without true color.
+function {
+  local accent=blue branch=magenta error=red muted=white suggestion=8
+  if [[ $COLORTERM == (truecolor|24bit) ]]; then
+    accent='#58a6ff' branch='#d2a8ff' error='#ff7b72' muted='#8b949e' suggestion='#8b9eb2'
+  elif [[ $TERM == *256color* ]]; then
+    accent=75 branch=183 error=210 muted=246 suggestion=110
+  fi
+
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$suggestion"
+  ZSH_THEME_GIT_PROMPT_PREFIX="%F{$branch}git:"
+  ZSH_THEME_GIT_PROMPT_SUFFIX="%f "
+  ZSH_THEME_GIT_PROMPT_CLEAN=""
+  ZSH_THEME_GIT_PROMPT_DIRTY=" %F{$error}*"
+
+  PROMPT="\$(kube_ps1) %(!.%F{$error}.%F{$muted})%n@%m%f %B%F{$accent}%~%f%b "
+  PROMPT+="\$(git_prompt_info)%(!.%F{$error}#.%F{$accent}>)%f "
+  PROMPT2="%F{$accent}%_>%f "
+  RPROMPT="%(?..%F{$error}exit %?%f)"
+}
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -127,15 +136,13 @@ bindkey '^I' expand-or-complete
 
 
 
-# fnm
-FNM_PATH="/home/maschaefer/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/maschaefer/.local/share/fnm:$PATH"
-  eval "`fnm env`"
-fi
+# # fnm
+# FNM_PATH="/home/maschaefer/.local/share/fnm"
+# if [ -d "$FNM_PATH" ]; then
+#   export PATH="/home/maschaefer/.local/share/fnm:$PATH"
+#   eval "`fnm env`"
+# fi
 
-
-PROMPT='$(kube_ps1) '$PROMPT
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
