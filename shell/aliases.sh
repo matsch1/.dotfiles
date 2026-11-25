@@ -34,6 +34,9 @@ k9s() {
   docker run --rm -it \
     -v "$kubeconfig:/root/.kube/config:ro" \
     --mount type=volume,source=k9s-nvim-data,target=/root/.local/share/k9s \
+    --mount "type=bind,source=$HOME/.dotfiles/shell/k9s-github-dark.yaml,target=/root/.config/k9s/skins/github-dark.yaml,readonly" \
     -e KUBECONFIG=/root/.kube/config \
+    -e K9S_SKIN=github-dark \
+    -e COLORTERM \
     "$image" "$@"
 }

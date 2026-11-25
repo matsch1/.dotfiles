@@ -1,0 +1,61 @@
+k9s:
+  body:
+    fgColor: "#e6edf3"
+    bgColor: "#0d1117"
+    logoColor: "#58a6ff"
+  prompt:
+    fgColor: "#e6edf3"
+    bgColor: "#161b22"
+    suggestColor: "#8b9eb2"
+    border:
+      command: "#58a6ff"
+      default: "#30363d"
+  info:
+    fgColor: "#e6edf3"
+    sectionColor: "#58a6ff"
+  frame:
+    border:
+      fgColor: "#30363d"
+      focusColor: "#58a6ff"
+    menu:
+      fgColor: "#8b949e"
+      keyColor: "#58a6ff"
+      numKeyColor: "#d2a8ff"
+    crumbs:
+      fgColor: "#0d1117"
+      bgColor: "#8b949e"
+      activeColor: "#58a6ff"
+    status:
+      newColor: "#7ee787"
+      modifyColor: "#d2a8ff"
+      addColor: "#7ee787"
+      pendingColor: "#e3b341"
+      errorColor: "#ff7b72"
+      highlightColor: "#58a6ff"
+      killColor: "#ff7b72"
+      completedColor: "#8b949e"
+    title:
+      fgColor: "#e6edf3"
+      bgColor: "#0d1117"
+      highlightColor: "#58a6ff"
+      counterColor: "#8b949e"
+      filterColor: "#d2a8ff"
+  views:
+    table:
+      fgColor: "#e6edf3"
+      bgColor: "#0d1117"
+      cursorFgColor: "#0d1117"
+      cursorBgColor: "#58a6ff"
+      markColor: "#d2a8ff"
+      header:
+        fgColor: "#e6edf3"
+        bgColor: "#161b22"
+        sorterColor: "#58a6ff"
+        selectedSortColumnColor: "#58a6ff"
+    yaml:
+      keyColor: "#7ee787"
+      colonColor: "#e6edf3"
+      valueColor: "#a5d6ff"
+    logs:
+      fgColor: "#e6edf3"
+      bgColor: "#0d1117"
