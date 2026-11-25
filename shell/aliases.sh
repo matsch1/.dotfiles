@@ -16,3 +16,23 @@ alias ld='lazydocker'
 alias kc='kubectl'
 alias task='go-task'
 alias top='btop'
+
+# k9s
+k9s() {
+  local kubeconfig="${KUBECONFIG:-$HOME/.kube/config}"
+  local image="k9s-nvim:local"
+
+  if [[ ! -f "$kubeconfig" ]]; then
+    echo "Kubeconfig nicht gefunden: $kubeconfig"
+    return 1
+  fi
+
+  if ! docker image inspect "$image" >/dev/null 2>&1; then
+    docker build -t "$image" - < "$HOME/.dotfiles/shell/k9s.Dockerfile" || return
+  fi
+
+  docker run --rm -it \
+    -v "$kubeconfig:/root/.kube/config:ro" \
+    -e KUBECONFIG=/root/.kube/config \
+    "$image" "$@"
+}
