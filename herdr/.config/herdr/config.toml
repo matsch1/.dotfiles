@@ -41,7 +41,7 @@ command = "local.vim-navigator.right"
 description = "Navigate right across Neovim splits and Herdr panes"
 
 [ui]
-accent = "blue"
+accent = "#58a6ff"
 
 # tmux drew single-line dividers between adjacent panes and no outer frame
 pane_gaps = false
